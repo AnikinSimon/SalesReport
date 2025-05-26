@@ -1,0 +1,179 @@
+{
+  "name": "\u041E\u0442\u0447\u0435\u0442 \u0437\u0430 \u0442\u0435\u043A\u0443\u0449\u0438\u0439 \u043C\u0435\u0441\u044F\u0446",
+  "startDate": "2025-05-01T00:00:00",
+  "endDate": "2025-05-26T00:00:00+03:00",
+  "devices": [
+    {
+      "article": "SP001",
+      "brand": "Apple",
+      "model": "Galaxy 1",
+      "saleDate": "2025-05-09T00:00:00+03:00",
+      "basePrice": 35000,
+      "price": 66411.7537535137,
+      "type": "Smartphone"
+    },
+    {
+      "article": "TB002",
+      "brand": "Huawei",
+      "model": "Tab 2",
+      "saleDate": "2025-05-06T00:00:00+03:00",
+      "basePrice": 23000,
+      "price": 79200,
+      "type": "Tablet"
+    },
+    {
+      "article": "LP003",
+      "brand": "Lenovo",
+      "model": "Model 3",
+      "saleDate": "2025-05-08T00:00:00+03:00",
+      "basePrice": 65000,
+      "price": 99000,
+      "type": "Laptop"
+    },
+    {
+      "article": "SP004",
+      "brand": "Samsung",
+      "model": "Galaxy 4",
+      "saleDate": "2025-05-08T00:00:00+03:00",
+      "basePrice": 23000,
+      "price": 39680.131812892,
+      "type": "Smartphone"
+    },
+    {
+      "article": "TB005",
+      "brand": "Apple",
+      "model": "Tab 5",
+      "saleDate": "2025-05-22T00:00:00+03:00",
+      "basePrice": 29000,
+      "price": 48200,
+      "type": "Tablet"
+    },
+    {
+      "article": "LP006",
+      "brand": "Asus",
+      "model": "Model 6",
+      "saleDate": "2025-05-24T00:00:00+03:00",
+      "basePrice": 35000,
+      "price": 61000,
+      "type": "Laptop"
+    },
+    {
+      "article": "SP007",
+      "brand": "Apple",
+      "model": "Galaxy 7",
+      "saleDate": "2025-05-01T00:00:00+03:00",
+      "basePrice": 29000,
+      "price": 57166.8448776983,
+      "type": "Smartphone"
+    },
+    {
+      "article": "TB008",
+      "brand": "Huawei",
+      "model": "Tab 8",
+      "saleDate": "2025-05-19T00:00:00+03:00",
+      "basePrice": 19000,
+      "price": 62400,
+      "type": "Tablet"
+    },
+    {
+      "article": "LP009",
+      "brand": "Lenovo",
+      "model": "Model 9",
+      "saleDate": "2025-05-19T00:00:00+03:00",
+      "basePrice": 70000,
+      "price": 98000,
+      "type": "Laptop"
+    },
+    {
+      "article": "SP010",
+      "brand": "Samsung",
+      "model": "Galaxy 10",
+      "saleDate": "2025-05-14T00:00:00+03:00",
+      "basePrice": 26000,
+      "price": 47254.171249925,
+      "type": "Smartphone"
+    },
+    {
+      "article": "TB011",
+      "brand": "Apple",
+      "model": "Tab 11",
+      "saleDate": "2025-05-16T00:00:00+03:00",
+      "basePrice": 15000,
+      "price": 21400,
+      "type": "Tablet"
+    },
+    {
+      "article": "LP012",
+      "brand": "Asus",
+      "model": "Model 12",
+      "saleDate": "2025-05-26T00:00:00+03:00",
+      "basePrice": 45000,
+      "price": 73000,
+      "type": "Laptop"
+    },
+    {
+      "article": "SP013",
+      "brand": "Apple",
+      "model": "Galaxy 13",
+      "saleDate": "2025-05-06T00:00:00+03:00",
+      "basePrice": 20000,
+      "price": 41035.7380740282,
+      "type": "Smartphone"
+    },
+    {
+      "article": "TB014",
+      "brand": "Huawei",
+      "model": "Tab 14",
+      "saleDate": "2025-05-20T00:00:00+03:00",
+      "basePrice": 21000,
+      "price": 40200,
+      "type": "Tablet"
+    },
+    {
+      "article": "LP015",
+      "brand": "Lenovo",
+      "model": "Model 15",
+      "saleDate": "2025-05-02T00:00:00+03:00",
+      "basePrice": 65000,
+      "price": 99000,
+      "type": "Laptop"
+    },
+    {
+      "article": "SP016",
+      "brand": "Samsung",
+      "model": "Galaxy 16",
+      "saleDate": "2025-05-14T00:00:00+03:00",
+      "basePrice": 47000,
+      "price": 66493.9728333135,
+      "type": "Smartphone"
+    },
+    {
+      "article": "TB017",
+      "brand": "Apple",
+      "model": "Tab 17",
+      "saleDate": "2025-05-16T00:00:00+03:00",
+      "basePrice": 19000,
+      "price": 38200,
+      "type": "Tablet"
+    },
+    {
+      "article": "LP018",
+      "brand": "Asus",
+      "model": "Model 18",
+      "saleDate": "2025-05-22T00:00:00+03:00",
+      "basePrice": 50000,
+      "price": 77000,
+      "type": "Laptop"
+    },
+    {
+      "article": "TB020",
+      "brand": "Huawei",
+      "model": "Tab 20",
+      "saleDate": "2025-05-09T00:00:00+03:00",
+      "basePrice": 31000,
+      "price": 63000,
+      "type": "Tablet"
+    }
+  ],
+  "isSelected": false
+}
