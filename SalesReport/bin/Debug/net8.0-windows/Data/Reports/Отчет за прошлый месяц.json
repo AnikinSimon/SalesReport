@@ -1,0 +1,80 @@
+{
+  "name": "\u041E\u0442\u0447\u0435\u0442 \u0437\u0430 \u043F\u0440\u043E\u0448\u043B\u044B\u0439 \u043C\u0435\u0441\u044F\u0446",
+  "startDate": "2025-04-01T00:00:00",
+  "endDate": "2025-04-30T00:00:00",
+  "devices": [
+    {
+      "$type": "smartphone",
+      "screenSize": 7.012868726182078,
+      "has5G": false,
+      "price": 47038.6061785462,
+      "article": "SP007",
+      "brand": "Apple",
+      "model": "Galaxy 7",
+      "saleDate": "2025-04-29T00:00:00+03:00",
+      "basePrice": 26000,
+      "type": "Smartphone"
+    },
+    {
+      "$type": "tablet",
+      "hasPenSupport": false,
+      "storageCapacity": 32,
+      "price": 37400,
+      "article": "TB008",
+      "brand": "Huawei",
+      "model": "Tab 8",
+      "saleDate": "2025-04-30T00:00:00+03:00",
+      "basePrice": 31000,
+      "type": "Tablet"
+    },
+    {
+      "$type": "tablet",
+      "hasPenSupport": false,
+      "storageCapacity": 224,
+      "price": 65800,
+      "article": "TB014",
+      "brand": "Huawei",
+      "model": "Tab 14",
+      "saleDate": "2025-04-30T00:00:00+03:00",
+      "basePrice": 21000,
+      "type": "Tablet"
+    },
+    {
+      "$type": "laptop",
+      "ram": 12,
+      "processorType": "i5",
+      "price": 73000,
+      "article": "LP015",
+      "brand": "Lenovo",
+      "model": "Model 15",
+      "saleDate": "2025-04-30T00:00:00+03:00",
+      "basePrice": 45000,
+      "type": "Laptop"
+    },
+    {
+      "$type": "smartphone",
+      "screenSize": 6.163192939962719,
+      "has5G": false,
+      "price": 53489.5788198882,
+      "article": "SP019",
+      "brand": "Apple",
+      "model": "Galaxy 19",
+      "saleDate": "2025-04-29T00:00:00+03:00",
+      "basePrice": 35000,
+      "type": "Smartphone"
+    },
+    {
+      "$type": "smartphone",
+      "screenSize": 6.633775854212253,
+      "has5G": true,
+      "price": 71901.3275626368,
+      "article": "SP019",
+      "brand": "Apple",
+      "model": "Galaxy 19",
+      "saleDate": "2025-04-28T00:00:00+03:00",
+      "basePrice": 44000,
+      "type": "Smartphone"
+    }
+  ],
+  "isSelected": false
+}

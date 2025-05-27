@@ -14,5 +14,9 @@ namespace Model.Core
         public override decimal Price => BasePrice +
                                       (HasPenSupport ? 5000 : 0) +
                                       (StorageCapacity * 200);
+
+
+        //public override decimal Price => BasePrice;
+        public Tablet() { }
     }
 }

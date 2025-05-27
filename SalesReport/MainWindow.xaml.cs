@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SalesReport
 {
@@ -22,7 +23,7 @@ namespace SalesReport
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly List<Report> _reports = new();
+        private List<Report> _reports = new();
         private SerializerBase _currentSerializer = new Model.Data.JsonSerializer();
 
         public MainWindow()
@@ -40,18 +41,23 @@ namespace SalesReport
             try
             {
                 string reportsPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Data", "Reports");
+                Trace.WriteLine(reportsPath);
                 Directory.CreateDirectory(reportsPath);
 
                 if (!Directory.GetFiles(reportsPath).Any())
                     GenerateSampleReports(reportsPath);
 
-                Console.WriteLine(reportsPath);
 
                 foreach (var file in Directory.GetFiles(reportsPath))
                 {
+                    Trace.WriteLine(file);
                     try
                     {
                         var content = File.ReadAllText(file);
+                        if (file.EndsWith(".json"))
+                        {
+                            Trace.WriteLine("IT IS JSON");
+                        }
                         var report = file.EndsWith(".json")
                             ? new Model.Data.JsonSerializer().Deserialize<Report>(content)
                             : new Model.Data.XmlSerializer().Deserialize<Report>(content);
@@ -116,8 +122,79 @@ namespace SalesReport
                         SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
                     }
                 };
+                ITProduct device2 = (i % 3) switch
+                {
+                    0 => new Laptop
+                    {
+                        Article = $"LP{i:000}",
+                        Brand = i % 2 == 0 ? "Asus" : "Lenovo",
+                        Model = $"Model {i}",
+                        BasePrice = 30000 + random.Next(0, 10) * 5000,
+                        RAM = 4 * (1 + random.Next(0, 4)),
+                        ProcessorType = new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)],
+                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
+                    },
+                    1 => new Smartphone
+                    {
+                        Article = $"SP{i:000}",
+                        Brand = i % 2 == 0 ? "Samsung" : "Apple",
+                        Model = $"Galaxy {i}",
+                        BasePrice = 20000 + random.Next(0, 10) * 3000,
+                        ScreenSize = 5 + random.NextDouble() * 3,
+                        Has5G = random.Next(0, 2) == 1,
+                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
+                    },
+                    _ => new Model.Core.Tablet
+                    {
+                        Article = $"TB{i:000}",
+                        Brand = i % 2 == 0 ? "Huawei" : "Apple",
+                        Model = $"Tab {i}",
+                        BasePrice = 15000 + random.Next(0, 10) * 2000,
+                        HasPenSupport = random.Next(0, 2) == 1,
+                        StorageCapacity = 32 * (1 + random.Next(0, 8)),
+                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
+                    }
+                };
+
+                ITProduct device3 = (i % 3) switch
+                {
+                    0 => new Laptop
+                    {
+                        Article = $"LP{i:000}",
+                        Brand = i % 2 == 0 ? "Asus" : "Lenovo",
+                        Model = $"Model {i}",
+                        BasePrice = 30000 + random.Next(0, 10) * 5000,
+                        RAM = 4 * (1 + random.Next(0, 4)),
+                        ProcessorType = new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)],
+                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
+                    },
+                    1 => new Smartphone
+                    {
+                        Article = $"SP{i:000}",
+                        Brand = i % 2 == 0 ? "Samsung" : "Apple",
+                        Model = $"Galaxy {i}",
+                        BasePrice = 20000 + random.Next(0, 10) * 3000,
+                        ScreenSize = 5 + random.NextDouble() * 3,
+                        Has5G = random.Next(0, 2) == 1,
+                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
+                    },
+                    _ => new Model.Core.Tablet
+                    {
+                        Article = $"TB{i:000}",
+                        Brand = i % 2 == 0 ? "Huawei" : "Apple",
+                        Model = $"Tab {i}",
+                        BasePrice = 15000 + random.Next(0, 10) * 2000,
+                        HasPenSupport = random.Next(0, 2) == 1,
+                        StorageCapacity = 32 * (1 + random.Next(0, 8)),
+                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
+                    }
+                };
                 devices.Add(device);
+                devices.Add(device2);
+                devices.Add(device3);
             }
+
+
 
             // Создание тестовых отчетов
             var reports = new List<Report>
@@ -139,7 +216,9 @@ namespace SalesReport
             // Сохранение отчетов
             foreach (var report in reports)
             {
+                //Trace.WriteLine(report);
                 var json = new Model.Data.JsonSerializer().Serialize(report);
+                //Trace.WriteLine(json);
                 File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}.json"), json);
             }
         }
@@ -188,7 +267,26 @@ namespace SalesReport
         private void ShowReport()
         {
             var selectedReports = _reports.Where(r => r.IsSelected).ToList();
-            var reportWindow = new ReportWindow(selectedReports, _currentSerializer);
+            var deviceType = (cbDeviceType.SelectedItem as ComboBoxItem)?.Content.ToString();
+            Type tp = deviceType switch
+            {
+                "Ноутбуки" => typeof(Laptop),
+                "Смартфоны" => typeof(Smartphone),
+                "Планшеты" => typeof(Model.Core.Tablet),
+                _ => typeof(ITProduct),
+            };
+            var period = (cbReportPeriod.SelectedItem as ComboBoxItem)?.Content.ToString();
+            DateTime startTime = dpReportDate.SelectedDate.Value;
+            DateTime endTime = period switch
+            {
+                "День" => startTime.AddDays(1),
+                "Неделя" => startTime.AddDays(7),
+                "Месяц" => startTime.AddMonths(1),
+                "Квартал" => startTime.AddMonths(3),
+                "Год" => startTime.AddYears(1),
+                _ => startTime
+            };
+            var reportWindow = new ReportWindow(selectedReports, _currentSerializer, tp, startTime, endTime);
             reportWindow.Show();
         }
 

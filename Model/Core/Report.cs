@@ -14,6 +14,8 @@ namespace Model.Core
         public List<ITProduct> Devices { get; set; }
         public bool IsSelected { get; set; }
 
+        public Report() { }
+
         public Report(string name, DateTime start, DateTime end, List<ITProduct> devices)
         {
             Name = name;
@@ -42,10 +44,9 @@ namespace Model.Core
             {
                 "День" => Devices.Any(d => d.SaleDate?.Date == date.Date),
                 "Неделя" => Devices.Any(d => d.SaleDate >= date && d.SaleDate < date.AddDays(7)),
-                "Месяц" => Devices.Any(d => d.SaleDate?.Month == date.Month && d.SaleDate?.Year == date.Year),
+                "Месяц" => Devices.Any(d => d.SaleDate >= date && d.SaleDate < date.AddMonths(1)),
                 "Квартал" => Devices.Any(d => d.SaleDate >= date && d.SaleDate < date.AddMonths(3)),
-                "Год" => Devices.Any(d => d.SaleDate?.Year == date.Year),
-                null => false,
+                "Год" => Devices.Any(d => d.SaleDate >= date && d.SaleDate < date.AddYears(1)),
                 _ => false
             };
         }

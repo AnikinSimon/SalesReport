@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,19 +9,24 @@ namespace Model.Data
 {
     public class XmlSerializer : SerializerBase
     {
+        private static readonly System.Xml.Serialization.XmlSerializer _reportSerializer = 
+            new System.Xml.Serialization.XmlSerializer(typeof(Report), new Type[] { typeof(Laptop), typeof(Smartphone), typeof(Tablet) });
+
         public override string Serialize<T>(T obj)
         {
-            var serializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
-            using var writer = new StringWriter();
-            serializer.Serialize(writer, obj);
-            return writer.ToString();
+            using (var writer = new StringWriter())
+            {
+                _reportSerializer.Serialize(writer, obj);
+                return writer.ToString();
+            }
         }
 
         public override T Deserialize<T>(string data)
         {
-            var serializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
-            using var reader = new StringReader(data);
-            return (T)serializer.Deserialize(reader);
+            using (var reader = new StringReader(data))
+            {
+                return (T)_reportSerializer.Deserialize(reader);
+            }
         }
     }
 }

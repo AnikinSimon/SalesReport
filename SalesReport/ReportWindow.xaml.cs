@@ -2,6 +2,7 @@
 using Model.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,12 +25,18 @@ namespace SalesReport
     {
         private readonly List<Report> _reports;
         private readonly SerializerBase _serializer;
+        private readonly Type _goodsType;
+        private readonly DateTime _startTime;
+        private readonly DateTime _endTime;
 
-        public ReportWindow(List<Report> reports, SerializerBase serializer)
+        public ReportWindow(List<Report> reports, SerializerBase serializer, Type tp, DateTime startTime, DateTime endTime)
         {
             InitializeComponent();
             _reports = reports;
             _serializer = serializer;
+            _goodsType = tp;
+            _startTime = startTime;
+            _endTime = endTime;
 
             LoadReportData();
             SetupEventHandlers();
@@ -37,14 +44,18 @@ namespace SalesReport
 
         private void LoadReportData()
         {
+
             // Объединяем устройства из всех отчетов
+            Trace.WriteLine(_startTime);
+            Trace.WriteLine(_endTime);
             var allDevices = _reports.SelectMany(r => r.Devices)
-                                   .DistinctBy(d => d.Article)
+                                   .Where(d => _goodsType == typeof(ITProduct) || d.GetType() == _goodsType)
+                                   .Where(d => d.SaleDate >= _startTime && d.SaleDate <= _endTime)
                                    .OrderBy(d => d.Article)
                                    .ToList();
 
             dgDevices.ItemsSource = allDevices;
-            cbArticle.ItemsSource = allDevices;
+            cbArticle.ItemsSource = allDevices.DistinctBy(g => g.Article);
 
             // Устанавливаем заголовок
             tbReportTitle.Text = _reports.Count == 1
@@ -69,11 +80,17 @@ namespace SalesReport
 
         private void ShowPriceHistory()
         {
-            //if (cbArticle.SelectedItem is ITProduct selectedDevice)
-            //{
-            //    var priceHistoryWindow = new PriceHistoryWindow(_reports, selectedDevice.Article);
-            //    priceHistoryWindow.Show();
-            //}
+            if (cbArticle.SelectedItem is ITProduct selectedDevice)
+            {
+                var selectedReports = _reports.Where(r => r.IsSelected).ToList();
+                var priceHistoryWindow = new PriceHistoryWindow(selectedReports, selectedDevice.Article, _startTime, _endTime);
+                priceHistoryWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Выберите устройство из списка", "Внимание",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void SaveReport()

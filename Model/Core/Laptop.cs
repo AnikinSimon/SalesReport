@@ -20,5 +20,9 @@ namespace Model.Core
                                           "i9" => 20000,
                                           _ => 0
                                       };
+
+        //public override decimal Price => BasePrice;
+
+        public Laptop() { }
     }
 }

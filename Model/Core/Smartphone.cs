@@ -13,5 +13,9 @@ namespace Model.Core
 
         public override decimal Price => BasePrice + (decimal)(ScreenSize * 3000) +
                                       (Has5G ? 8000 : 0);
+
+        //public override decimal Price => BasePrice;
+
+        public Smartphone() { }
     }
 }
