@@ -30,13 +30,13 @@ namespace SalesReport
         {
             InitializeComponent();
             Trace.WriteLine($"HElloe");
-            LoadReports();
+            LoadReports(false);
             SetupEventHandlers();
             dpReportDate.SelectedDate = DateTime.Today;
             
         }
 
-        private void LoadReports()
+        private void LoadReports(bool isJson = true)
         {
             try
             {
@@ -45,23 +45,35 @@ namespace SalesReport
                 Directory.CreateDirectory(reportsPath);
 
                 if (!Directory.GetFiles(reportsPath).Any())
-                    GenerateSampleReports(reportsPath);
+                    GenerateSampleReports(reportsPath, isJson);
 
 
                 foreach (var file in Directory.GetFiles(reportsPath))
                 {
-                    Trace.WriteLine(file);
+                    
                     try
                     {
                         var content = File.ReadAllText(file);
-                        if (file.EndsWith(".json"))
+                        if (isJson)
                         {
-                            Trace.WriteLine("IT IS JSON");
+                            
+                            if (file.EndsWith(".json"))
+                            {
+                                Trace.WriteLine(file);
+                                Report report = new Model.Data.JsonSerializer().Deserialize<Report>(content);
+                                _reports.Add(report);
+                            }
+                        } else
+                        {
+                            if (file.EndsWith(".xml"))
+                            {
+                                Trace.WriteLine(file);
+                                Report report = new Model.Data.XmlSerializer().Deserialize<Report>(content);
+                                _reports.Add(report);
+                            }
                         }
-                        var report = file.EndsWith(".json")
-                            ? new Model.Data.JsonSerializer().Deserialize<Report>(content)
-                            : new Model.Data.XmlSerializer().Deserialize<Report>(content);
-                        _reports.Add(report);
+
+                       
                     }
                     catch (Exception ex)
                     {
@@ -81,7 +93,7 @@ namespace SalesReport
             }
         }
 
-        private void GenerateSampleReports(string path)
+        private void GenerateSampleReports(string path, bool isJson = true)
         {
             var random = new Random();
             var devices = new List<ITProduct>();
@@ -216,10 +228,18 @@ namespace SalesReport
             // Сохранение отчетов
             foreach (var report in reports)
             {
-                //Trace.WriteLine(report);
-                var json = new Model.Data.JsonSerializer().Serialize(report);
-                //Trace.WriteLine(json);
-                File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}.json"), json);
+                if (isJson)
+                {
+                    //Trace.WriteLine(report);
+                    var json = new Model.Data.JsonSerializer().Serialize(report);
+                    //Trace.WriteLine(json);
+                    File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}.json"), json);
+                } else
+                {
+                    var xm = new Model.Data.XmlSerializer().Serialize(report);
+                    File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}.xml"), xm);
+                }
+                
             }
         }
 
