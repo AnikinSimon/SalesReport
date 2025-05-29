@@ -8,6 +8,7 @@ namespace Model.Core
 {
     public class ITProductDto
     {
+        public Guid ID { get; set; }
         public string Article { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }

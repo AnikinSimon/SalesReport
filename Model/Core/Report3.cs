@@ -8,6 +8,8 @@ namespace Model.Core
 {
     public partial class Report
     {
+
+
         public List<PriceChange> GetPriceChanges(string article)
         {
             return Devices?

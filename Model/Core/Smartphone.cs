@@ -17,9 +17,9 @@ namespace Model.Core
         //public override decimal Price => BasePrice;
 
 
-        public Smartphone(string article, string brand, string model, decimal basePrice,
+        public Smartphone(Guid id, string article, string brand, string model, decimal basePrice,
                         DateTime? saleDate, double screenSize, bool has5G)
-            : base(article, brand, model, basePrice, saleDate)
+            : base(id, article, brand, model, basePrice, saleDate)
         {
             ScreenSize = screenSize;
             Has5G = has5G;

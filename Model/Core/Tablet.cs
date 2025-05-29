@@ -17,9 +17,9 @@ namespace Model.Core
 
 
         //public override decimal Price => BasePrice;
-        public Tablet(string article, string brand, string model, decimal basePrice,
+        public Tablet(Guid id, string article, string brand, string model, decimal basePrice,
                       DateTime? saleDate, bool hasPenSupport, int storageCapacity)
-             : base(article, brand, model, basePrice, saleDate)
+             : base(id, article, brand, model, basePrice, saleDate)
         {
             HasPenSupport = hasPenSupport;
             StorageCapacity = storageCapacity;

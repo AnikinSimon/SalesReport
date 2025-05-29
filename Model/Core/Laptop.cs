@@ -23,9 +23,9 @@ namespace Model.Core
 
         //public override decimal Price => BasePrice;
 
-        public Laptop(string article, string brand, string model, decimal basePrice,
+        public Laptop(Guid id, string article, string brand, string model, decimal basePrice,
                 DateTime? saleDate, int ram, string processorType)
-        : base(article, brand, model, basePrice, saleDate)
+        : base(id, article, brand, model, basePrice, saleDate)
         {
             RAM = ram;
             ProcessorType = processorType;

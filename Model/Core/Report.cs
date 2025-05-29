@@ -21,7 +21,8 @@ namespace Model.Core
             Name = name;
             StartDate = start;
             EndDate = end;
-            Devices = devices ?? new List<ITProduct>();
+            Devices =  new List<ITProduct>();
+            AddDevices(devices);
         }
 
         public void Sort(bool ascending)

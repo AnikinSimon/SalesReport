@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +24,15 @@ namespace Model.Core
 
         public void AddDevice(ITProduct device)
         {
-            if (!Devices.Any(d => d.Article == device.Article))
+            if (ProductRegistry.TryRegisterProduct(device, this.Name) && !Devices.Contains(device))
+            {
+                Trace.WriteLine($"ADDED {device.ID}");
                 Devices.Add(device);
+            } else
+            {
+                Trace.WriteLine("ALREADY REGISTERED");
+            }
+                
         }
 
         public void AddDevices(IEnumerable<ITProduct> devices)

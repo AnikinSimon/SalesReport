@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Linq;
 
 namespace SalesReport
 {
@@ -25,7 +26,6 @@ namespace SalesReport
     {
         private List<Report> _reports = new();
         private List<Report> _reportsInPeriod = new();
-        private SerializerBase _currentSerializer = new Model.Data.JsonSerializer();
         private ISerializer _serializer = new Model.Data.JsonSer();
 
         public MainWindow()
@@ -107,27 +107,27 @@ namespace SalesReport
             var devices = new List<ITProduct>();
 
             // Генерация тестовых устройств
-            for (int i = 1; i <= 20; i++)
+            for (int i = 1; i <= 21; i++)
             {
                 ITProduct device = (i % 3) switch
                 {
-                    0 => new Laptop($"LP{i:000}", i % 2 == 0 ? "Asus" : "Lenovo", $"Model {i}", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 90)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]),
-                    1 => new Smartphone ($"SP{i:000}", i % 2 == 0 ? "Samsung" : "Apple", $"Galaxy {i}", 20000 + random.Next(0, 10) * 3000, DateTime.Today.AddDays(-random.Next(0, 90)), 5 + random.NextDouble() * 3, random.Next(0, 2) == 1),
-                    _ => new Model.Core.Tablet($"TB{i:000}", i % 2 == 0 ? "Huawei" : "Apple", $"Tab {i}", 15000 + random.Next(0, 10) * 2000, DateTime.Today.AddDays(-random.Next(0, 90)),  random.Next(0, 2) == 1, 32 * (1 + random.Next(0, 8)))
+                    0 => new Laptop(Guid.NewGuid(), $"LP{i:000}", i % 2 == 0 ? "Asus" : "Lenovo", $"Model {i}", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 90)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]),
+                    1 => new Smartphone (Guid.NewGuid(), $"SP{i:000}", i % 2 == 0 ? "Samsung" : "Apple", $"Galaxy {i}", 20000 + random.Next(0, 10) * 3000, DateTime.Today.AddDays(-random.Next(0, 90)), 5 + random.NextDouble() * 3, random.Next(0, 2) == 1),
+                    _ => new Model.Core.Tablet(Guid.NewGuid(), $"TB{i:000}", i % 2 == 0 ? "Huawei" : "Apple", $"Tab {i}", 15000 + random.Next(0, 10) * 2000, DateTime.Today.AddDays(-random.Next(0, 90)),  random.Next(0, 2) == 1, 32 * (1 + random.Next(0, 8)))
                 };
 
                 ITProduct device2 = (i % 3) switch
                 {
-                    0 => new Laptop($"LP{i:000}", i % 2 == 0 ? "Asus" : "Lenovo", $"Model {i}", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 90)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]),
-                    1 => new Smartphone($"SP{i:000}", i % 2 == 0 ? "Samsung" : "Apple", $"Galaxy {i}", 20000 + random.Next(0, 10) * 3000, DateTime.Today.AddDays(-random.Next(0, 90)), 5 + random.NextDouble() * 3, random.Next(0, 2) == 1),
-                    _ => new Model.Core.Tablet($"TB{i:000}", i % 2 == 0 ? "Huawei" : "Apple", $"Tab {i}", 15000 + random.Next(0, 10) * 2000, DateTime.Today.AddDays(-random.Next(0, 90)), random.Next(0, 2) == 1, 32 * (1 + random.Next(0, 8)))
+                    0 => new Laptop(Guid.NewGuid(), $"LP{i:000}", i % 2 == 0 ? "Asus" : "Lenovo", $"Model {i}", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 90)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]),
+                    1 => new Smartphone(Guid.NewGuid(), $"SP{i:000}", i % 2 == 0 ? "Samsung" : "Apple", $"Galaxy {i}", 20000 + random.Next(0, 10) * 3000, DateTime.Today.AddDays(-random.Next(0, 90)), 5 + random.NextDouble() * 3, random.Next(0, 2) == 1),
+                    _ => new Model.Core.Tablet(Guid.NewGuid(), $"TB{i:000}", i % 2 == 0 ? "Huawei" : "Apple", $"Tab {i}", 15000 + random.Next(0, 10) * 2000, DateTime.Today.AddDays(-random.Next(0, 90)), random.Next(0, 2) == 1, 32 * (1 + random.Next(0, 8)))
                 };
 
                 ITProduct device3 = (i % 3) switch
                 {
-                    0 => new Laptop($"LP{i:000}", i % 2 == 0 ? "Asus" : "Lenovo", $"Model {i}", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 90)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]),
-                    1 => new Smartphone($"SP{i:000}", i % 2 == 0 ? "Samsung" : "Apple", $"Galaxy {i}", 20000 + random.Next(0, 10) * 3000, DateTime.Today.AddDays(-random.Next(0, 90)), 5 + random.NextDouble() * 3, random.Next(0, 2) == 1),
-                    _ => new Model.Core.Tablet($"TB{i:000}", i % 2 == 0 ? "Huawei" : "Apple", $"Tab {i}", 15000 + random.Next(0, 10) * 2000, DateTime.Today.AddDays(-random.Next(0, 90)), random.Next(0, 2) == 1, 32 * (1 + random.Next(0, 8)))
+                    0 => new Laptop(Guid.NewGuid(), $"LP{i:000}", i % 2 == 0 ? "Asus" : "Lenovo", $"Model {i}", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 90)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]),
+                    1 => new Smartphone(Guid.NewGuid(), $"SP{i:000}", i % 2 == 0 ? "Samsung" : "Apple", $"Galaxy {i}", 20000 + random.Next(0, 10) * 3000, DateTime.Today.AddDays(-random.Next(0, 90)), 5 + random.NextDouble() * 3, random.Next(0, 2) == 1),
+                    _ => new Model.Core.Tablet(Guid.NewGuid(), $"TB{i:000}", i % 2 == 0 ? "Huawei" : "Apple", $"Tab {i}", 15000 + random.Next(0, 10) * 2000, DateTime.Today.AddDays(-random.Next(0, 90)), random.Next(0, 2) == 1, 32 * (1 + random.Next(0, 8)))
                 };
 
                 devices.Add(device);
@@ -144,6 +144,7 @@ namespace SalesReport
                 if (device.SaleDate?.Month == DateTime.Today.Month)
                 {
                     curMonth.Add(device);
+                    //lastMonth.Add(device);
                 } else if (device.SaleDate?.Month == DateTime.Today.AddMonths(-1).Month)
                 {
                     lastMonth.Add(device);
@@ -183,12 +184,18 @@ namespace SalesReport
             //        devices.Where(d => d.SaleDate >= new DateTime(DateTime.Today.Year, (DateTime.Today.Month - 1) / 3 * 3 + 1, 1)).ToList())
             //};
 
-            Laptop newLaptop = new Laptop("LP101", "Lenovo", $"Model 554", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 30)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]);
+            Laptop newLaptop = new Laptop(Guid.NewGuid(), "LP101", "Lenovo", $"Model 554", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 30)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]);
             reports[0] += newLaptop;
+
+            reports[1] += newLaptop;
 
             // Сохранение отчетов
             foreach (var report in reports)
             {
+                foreach(var device in report.Devices)
+                {
+                    Trace.WriteLine(device);
+                }
                 if (isJson)
                 {
                     //Trace.WriteLine(report);
@@ -222,12 +229,11 @@ namespace SalesReport
             dpReportDate.SelectedDateChanged += (s, e) => UpdateAvailableReports();
 
             btnShowReport.Click += (s, e) => ShowReport();
-            btnPriceHistory.Click += (s, e) => ShowPriceHistory();
 
             cbSaveFormat.SelectionChanged += (s, e) => ChangeSerializationType();
 
-
         }
+
 
         private void ChangeSerializationType()
         {
@@ -283,7 +289,8 @@ namespace SalesReport
 
             lbAvailableReports.Items.Refresh();
             btnShowReport.IsEnabled = _reportsInPeriod.Any(r => r.IsSelected);
-            btnPriceHistory.IsEnabled = _reportsInPeriod.Any(r => r.IsSelected);
+
+
         }
 
         private void ShowReport()
@@ -312,11 +319,18 @@ namespace SalesReport
             reportWindow.Show();
         }
 
-        private void ShowPriceHistory()
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
-            //var selectedReports = _reports.Where(r => r.IsSelected).ToList();
-            //var priceHistoryWindow = new PriceHistoryWindow(selectedReports, "art1");
-            //priceHistoryWindow.Show();
+            UpdateButtonsState();
+            e.Handled = true;
         }
+
+        private void UpdateButtonsState()
+        {
+            bool anySelected = _reportsInPeriod?.Any(r => r.IsSelected) ?? false;
+            btnShowReport.IsEnabled = anySelected;
+        }
+
+
     }
 }

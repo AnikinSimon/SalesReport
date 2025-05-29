@@ -46,20 +46,20 @@
         </StackPanel>
 
         <!-- Список доступных отчетов -->
-        <GroupBox Grid.Row="3" Header="Доступные отчеты" Margin="0,15,0,152" Grid.RowSpan="2">
-            <ListBox x:Name="lbAvailableReports" SelectionMode="Multiple">
+        <GroupBox Grid.Row="3" Header="Доступные отчеты" Margin="0,15,0,80" Grid.RowSpan="2">
+            <ListBox x:Name="lbAvailableReports" SelectionMode="Multiple" Margin="0,0,0,6">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected}"/>
+                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected}" Click="CheckBox_Click"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </GroupBox>
 
         <!-- Формат сохранения -->
-        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,99,0,0">
-            <Label Content="Формат сохранения:" VerticalAlignment="Center" Width="100"/>
-            <ComboBox x:Name="cbSaveFormat" Width="75" Height="20">
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,185,0,0">
+            <Label Content="Формат сохранения:" VerticalAlignment="Center" Width="140"/>
+            <ComboBox x:Name="cbSaveFormat" Width="75" Height="25">
                 <ComboBoxItem Content="JSON" IsSelected="True"/>
                 <ComboBoxItem Content="XML"/>
             </ComboBox>
@@ -68,8 +68,8 @@
         <!-- Кнопки действий -->
         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
             <Button x:Name="btnShowReport" Content="Показать отчет" Width="120" Margin="0,0,10,0" IsEnabled="False"/>
-            <Button x:Name="btnPriceHistory" Content="История цен" Width="120" IsEnabled="False"/>
         </StackPanel>
+
     </Grid>
 </Window>
 
