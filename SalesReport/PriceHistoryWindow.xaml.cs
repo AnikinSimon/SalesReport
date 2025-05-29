@@ -65,12 +65,18 @@ namespace SalesReport
                 .SelectMany(r => r.Devices)
                 .Where(d => d.Article == article && d.SaleDate.HasValue)
                 .Where(d => d.SaleDate >= startTime && d.SaleDate <= endTime)
-                .OrderBy(d => d.SaleDate)
+                .GroupBy(d => d.SaleDate)
+                .Select(g => new
+                {
+                    Date = g.Key,
+                    AvgPrice = g.Average(d => d.Price),
+                })
+                .OrderBy(x => x.Date)
                 .ToList();
 
             // Подготавливаем данные для графика
-            PriceValues = new ChartValues<decimal>(sales.Select(d => d.Price));
-            DateLabels = sales.Select(d => d.SaleDate?.ToString("dd.MM.yyyy")).ToArray();
+            PriceValues = new ChartValues<decimal>(sales.Select(d => d.AvgPrice));
+            DateLabels = sales.Select(d => d.Date?.ToString("dd.MM.yyyy")).ToArray();
 
             // Настройка серий
             SeriesCollection = new SeriesCollection

@@ -26,12 +26,16 @@ namespace SalesReport
         private List<Report> _reports = new();
         private List<Report> _reportsInPeriod = new();
         private SerializerBase _currentSerializer = new Model.Data.JsonSerializer();
+        private ISerializer _serializer = new Model.Data.JsonSer();
 
         public MainWindow()
         {
+            bool isJson = true;
             InitializeComponent();
             Trace.WriteLine($"HElloe");
-            LoadReports(false);
+            if (!isJson)
+                _serializer = new Model.Data.XmlSer();
+            LoadReports(isJson);
             SetupEventHandlers();
             dpReportDate.SelectedDate = DateTime.Today;
             
@@ -61,7 +65,8 @@ namespace SalesReport
                             if (file.EndsWith(".json"))
                             {
                                 Trace.WriteLine(file);
-                                ReportDto report = new Model.Data.JsonSerializer().Deserialize<ReportDto>(content);
+                                //ReportDto report = new Model.Data.JsonSerializer().Deserialize<ReportDto>(content);
+                                ReportDto report = _serializer.Deserialize<ReportDto>(content);
                                 _reports.Add(Report.FromDto(report));
                             }
                         } else
@@ -69,7 +74,7 @@ namespace SalesReport
                             if (file.EndsWith(".xml"))
                             {
                                 Trace.WriteLine(file);
-                                ReportDto report = new Model.Data.XmlSerializer().Deserialize<ReportDto>(content);
+                                ReportDto report = _serializer.Deserialize<ReportDto>(content);
                                 Trace.WriteLine(report);
                                 _reports.Add(Report.FromDto(report));
                             }
@@ -106,33 +111,80 @@ namespace SalesReport
             {
                 ITProduct device = (i % 3) switch
                 {
-                    0 => new Laptop($"LP{i:000}", i % 2 == 0 ? "Asus" : "Lenovo", $"Model {i}", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 30)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]),
+                    0 => new Laptop($"LP{i:000}", i % 2 == 0 ? "Asus" : "Lenovo", $"Model {i}", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 90)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]),
+                    1 => new Smartphone ($"SP{i:000}", i % 2 == 0 ? "Samsung" : "Apple", $"Galaxy {i}", 20000 + random.Next(0, 10) * 3000, DateTime.Today.AddDays(-random.Next(0, 90)), 5 + random.NextDouble() * 3, random.Next(0, 2) == 1),
+                    _ => new Model.Core.Tablet($"TB{i:000}", i % 2 == 0 ? "Huawei" : "Apple", $"Tab {i}", 15000 + random.Next(0, 10) * 2000, DateTime.Today.AddDays(-random.Next(0, 90)),  random.Next(0, 2) == 1, 32 * (1 + random.Next(0, 8)))
+                };
 
-                    1 => new Smartphone ($"SP{i:000}", i % 2 == 0 ? "Samsung" : "Apple", $"Galaxy {i}", 20000 + random.Next(0, 10) * 3000, DateTime.Today.AddDays(-random.Next(0, 30)), 5 + random.NextDouble() * 3, random.Next(0, 2) == 1),
-                    _ => new Model.Core.Tablet($"TB{i:000}", i % 2 == 0 ? "Huawei" : "Apple", $"Tab {i}", 15000 + random.Next(0, 10) * 2000, DateTime.Today.AddDays(-random.Next(0, 30)),  random.Next(0, 2) == 1, 32 * (1 + random.Next(0, 8)))
+                ITProduct device2 = (i % 3) switch
+                {
+                    0 => new Laptop($"LP{i:000}", i % 2 == 0 ? "Asus" : "Lenovo", $"Model {i}", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 90)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]),
+                    1 => new Smartphone($"SP{i:000}", i % 2 == 0 ? "Samsung" : "Apple", $"Galaxy {i}", 20000 + random.Next(0, 10) * 3000, DateTime.Today.AddDays(-random.Next(0, 90)), 5 + random.NextDouble() * 3, random.Next(0, 2) == 1),
+                    _ => new Model.Core.Tablet($"TB{i:000}", i % 2 == 0 ? "Huawei" : "Apple", $"Tab {i}", 15000 + random.Next(0, 10) * 2000, DateTime.Today.AddDays(-random.Next(0, 90)), random.Next(0, 2) == 1, 32 * (1 + random.Next(0, 8)))
+                };
+
+                ITProduct device3 = (i % 3) switch
+                {
+                    0 => new Laptop($"LP{i:000}", i % 2 == 0 ? "Asus" : "Lenovo", $"Model {i}", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 90)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]),
+                    1 => new Smartphone($"SP{i:000}", i % 2 == 0 ? "Samsung" : "Apple", $"Galaxy {i}", 20000 + random.Next(0, 10) * 3000, DateTime.Today.AddDays(-random.Next(0, 90)), 5 + random.NextDouble() * 3, random.Next(0, 2) == 1),
+                    _ => new Model.Core.Tablet($"TB{i:000}", i % 2 == 0 ? "Huawei" : "Apple", $"Tab {i}", 15000 + random.Next(0, 10) * 2000, DateTime.Today.AddDays(-random.Next(0, 90)), random.Next(0, 2) == 1, 32 * (1 + random.Next(0, 8)))
                 };
 
                 devices.Add(device);
+                devices.Add(device2);
+                devices.Add(device3);
             }
 
+            List<ITProduct> curMonth = new List<ITProduct>();
+            List<ITProduct> lastMonth = new List<ITProduct>();
+            List<ITProduct> curQuarter = new List<ITProduct> ();
 
+            foreach(var device in devices)
+            {
+                if (device.SaleDate?.Month == DateTime.Today.Month)
+                {
+                    curMonth.Add(device);
+                } else if (device.SaleDate?.Month == DateTime.Today.AddMonths(-1).Month)
+                {
+                    lastMonth.Add(device);
+                } else
+                {
+                    curQuarter.Add(device);
+                }
+            }
 
-            // Создание тестовых отчетов
             var reports = new List<Report>
             {
                 new("Отчет за текущий месяц",
                     new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1),
-                    DateTime.Today,
-                    devices.Where(d => d.SaleDate?.Month == DateTime.Today.Month).ToList()),
+                    DateTime.Today, curMonth),
                 new("Отчет за прошлый месяц",
                     new DateTime(DateTime.Today.AddMonths(-1).Year, DateTime.Today.AddMonths(-1).Month, 1),
-                    new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddDays(-1),
-                    devices.Where(d => d.SaleDate?.Month == DateTime.Today.AddMonths(-1).Month).ToList()),
+                    new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddDays(-1), lastMonth),
                 new("Отчет за квартал",
                     new DateTime(DateTime.Today.Year, (DateTime.Today.Month - 1) / 3 * 3 + 1, 1),
-                    DateTime.Today,
-                    devices.Where(d => d.SaleDate >= new DateTime(DateTime.Today.Year, (DateTime.Today.Month - 1) / 3 * 3 + 1, 1)).ToList())
+                    DateTime.Today, curQuarter)
             };
+
+            // Создание тестовых отчетов
+            //var reports = new List<Report>
+            //{
+            //    new("Отчет за текущий месяц",
+            //        new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1),
+            //        DateTime.Today,
+            //        devices.Where(d => d.SaleDate?.Month == DateTime.Today.Month).ToList()),
+            //    new("Отчет за прошлый месяц",
+            //        new DateTime(DateTime.Today.AddMonths(-1).Year, DateTime.Today.AddMonths(-1).Month, 1),
+            //        new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddDays(-1),
+            //        devices.Where(d => d.SaleDate?.Month == DateTime.Today.AddMonths(-1).Month).ToList()),
+            //    new("Отчет за квартал",
+            //        new DateTime(DateTime.Today.Year, (DateTime.Today.Month - 1) / 3 * 3 + 1, 1),
+            //        DateTime.Today,
+            //        devices.Where(d => d.SaleDate >= new DateTime(DateTime.Today.Year, (DateTime.Today.Month - 1) / 3 * 3 + 1, 1)).ToList())
+            //};
+
+            Laptop newLaptop = new Laptop("LP101", "Lenovo", $"Model 554", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 30)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]);
+            reports[0] += newLaptop;
 
             // Сохранение отчетов
             foreach (var report in reports)
@@ -140,7 +192,8 @@ namespace SalesReport
                 if (isJson)
                 {
                     //Trace.WriteLine(report);
-                    var json = new Model.Data.JsonSerializer().Serialize(report);
+                    //var json = new Model.Data.JsonSerializer().Serialize(report);
+                    string json = _serializer.Serialize<ReportDto>(report.ToDto());
                     //Trace.WriteLine(json);
                     File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}.json"), json);
                 }
@@ -171,11 +224,37 @@ namespace SalesReport
             btnShowReport.Click += (s, e) => ShowReport();
             btnPriceHistory.Click += (s, e) => ShowPriceHistory();
 
-            cbSaveFormat.SelectionChanged += (s, e) =>
-                _currentSerializer = cbSaveFormat.SelectedIndex == 0 ?
-                    new Model.Data.JsonSerializer() :
-                    new Model.Data.XmlSerializer();
+            cbSaveFormat.SelectionChanged += (s, e) => ChangeSerializationType();
+
+
         }
+
+        private void ChangeSerializationType()
+        {
+
+            Trace.WriteLine("CHANGE TYPE");
+            string newExt = cbSaveFormat.SelectedIndex == 0 ? ".json" : ".xml";
+            string curExt = cbSaveFormat.SelectedIndex == 0 ? ".xml" : ".json";
+            SerializerBase tempSerializer = cbSaveFormat.SelectedIndex == 0 ?  new JsonSer() : new XmlSer();
+            string reportsPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Data", "Reports");
+            Trace.WriteLine(curExt);
+
+            foreach (string file in Directory.GetFiles(reportsPath))
+            {
+                Trace.WriteLine(file);
+                var content = File.ReadAllText(file);
+                  if (file.EndsWith(curExt))
+                  {
+                        Trace.WriteLine(file);
+                        ReportDto report = _serializer.Deserialize<ReportDto>(content);
+                        string fileName = $"{System.IO.Path.GetFileNameWithoutExtension(file)}{newExt}";
+                        string filePath = System.IO.Path.Combine(reportsPath, fileName);
+                        string serialized = tempSerializer.Serialize(report);
+                    File.WriteAllText(filePath, serialized);
+                  }
+            }
+            _serializer = tempSerializer;
+        } 
 
         private void UpdateAvailableReports()
         {
@@ -229,7 +308,7 @@ namespace SalesReport
                 "Год" => startTime.AddYears(1),
                 _ => startTime
             };
-            var reportWindow = new ReportWindow(selectedReports, _currentSerializer, tp, startTime, endTime);
+            var reportWindow = new ReportWindow(selectedReports, _serializer, tp, startTime, endTime);
             reportWindow.Show();
         }
 

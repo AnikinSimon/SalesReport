@@ -24,12 +24,13 @@ namespace SalesReport
     public partial class ReportWindow : Window
     {
         private readonly List<Report> _reports;
-        private readonly SerializerBase _serializer;
+        private readonly ISerializer _serializer;
         private readonly Type _goodsType;
         private readonly DateTime _startTime;
         private readonly DateTime _endTime;
 
-        public ReportWindow(List<Report> reports, SerializerBase serializer, Type tp, DateTime startTime, DateTime endTime)
+        public ReportWindow(List<Report> reports, ISerializer serializer, Type tp, DateTime startTime, DateTime endTime)
+
         {
             InitializeComponent();
             _reports = reports;

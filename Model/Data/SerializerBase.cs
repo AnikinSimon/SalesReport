@@ -8,7 +8,7 @@ namespace Model.Data
 {
     public abstract class SerializerBase: ISerializer
     {
-        public abstract string Serialize<T>(T obj);
-        public abstract T Deserialize<T>(string data);
+        public abstract string Serialize<T>(T obj) where T: class;
+        public abstract T Deserialize<T>(string data) where T: class;
     }
 }

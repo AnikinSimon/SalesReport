@@ -37,5 +37,13 @@ namespace Model.Core
         {
             AddDevices(report.Devices);
         }
+
+        public static Report operator +(Report report, ITProduct device)
+        {
+            Report res = new Report(report.Name, report.StartDate, report.EndDate, report.Devices);
+            res.AddDevice(device);
+
+            return res;
+        }
     }
 }

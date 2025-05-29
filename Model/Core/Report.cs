@@ -90,5 +90,7 @@ namespace Model.Core
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public List<ITProductDto> Devices { get; set; }
+
+        public ReportDto() { }  
     }
 }

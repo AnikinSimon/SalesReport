@@ -22,5 +22,7 @@ namespace Model.Core
         public bool? Has5G { get; set; }
         public bool? HasPenSupport { get; set; }
         public int? StorageCapacity { get; set; }
+
+        public ITProductDto() { }
     }
 }

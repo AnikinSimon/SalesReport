@@ -8,7 +8,7 @@ namespace Model.Data
 {
     public interface ISerializer
     {
-        public string Serialize<T>(T obj);
-        public T Deserialize<T>(string data);
+        public string Serialize<T>(T obj) where T: class;
+        public T Deserialize<T>(string data) where T : class;
     }
 }
