@@ -5,68 +5,26 @@
   <EndDate>2025-05-29T00:00:00+03:00</EndDate>
   <Devices>
     <ITProductDto>
-      <ID>891ff551-b3d0-467e-8d6e-c13eca30eacd</ID>
+      <ID>184f4a9a-3c5f-4777-9663-e6ebdc7fa38f</ID>
       <Article>SP001</Article>
       <Brand>Apple</Brand>
       <Model>Galaxy 1</Model>
-      <BasePrice>32000.0</BasePrice>
-      <SaleDate>2025-03-12T00:00:00+03:00</SaleDate>
+      <BasePrice>23000.0</BasePrice>
+      <SaleDate>2025-03-03T00:00:00+03:00</SaleDate>
       <Type>Smartphone</Type>
       <RAM xsi:nil="true" />
-      <ScreenSize>5.236041587517786</ScreenSize>
-      <Has5G>false</Has5G>
+      <ScreenSize>6.4256145383270695</ScreenSize>
+      <Has5G>true</Has5G>
       <HasPenSupport xsi:nil="true" />
       <StorageCapacity xsi:nil="true" />
     </ITProductDto>
     <ITProductDto>
-      <ID>df74fce0-b407-4ac4-a710-2565f3709b8e</ID>
-      <Article>TB002</Article>
-      <Brand>Huawei</Brand>
-      <Model>Tab 2</Model>
-      <BasePrice>23000.0</BasePrice>
-      <SaleDate>2025-03-30T00:00:00+03:00</SaleDate>
-      <Type>Tablet</Type>
-      <RAM xsi:nil="true" />
-      <ScreenSize xsi:nil="true" />
-      <Has5G xsi:nil="true" />
-      <HasPenSupport>true</HasPenSupport>
-      <StorageCapacity>64</StorageCapacity>
-    </ITProductDto>
-    <ITProductDto>
-      <ID>f28e3b0c-8360-4e45-9ccd-3619fb09d537</ID>
-      <Article>TB002</Article>
-      <Brand>Huawei</Brand>
-      <Model>Tab 2</Model>
-      <BasePrice>19000.0</BasePrice>
-      <SaleDate>2025-03-25T00:00:00+03:00</SaleDate>
-      <Type>Tablet</Type>
-      <RAM xsi:nil="true" />
-      <ScreenSize xsi:nil="true" />
-      <Has5G xsi:nil="true" />
-      <HasPenSupport>false</HasPenSupport>
-      <StorageCapacity>224</StorageCapacity>
-    </ITProductDto>
-    <ITProductDto>
-      <ID>63c5c912-0a0d-476f-af90-e090e903f0fc</ID>
-      <Article>TB002</Article>
-      <Brand>Huawei</Brand>
-      <Model>Tab 2</Model>
-      <BasePrice>31000.0</BasePrice>
-      <SaleDate>2025-03-12T00:00:00+03:00</SaleDate>
-      <Type>Tablet</Type>
-      <RAM xsi:nil="true" />
-      <ScreenSize xsi:nil="true" />
-      <Has5G xsi:nil="true" />
-      <HasPenSupport>false</HasPenSupport>
-      <StorageCapacity>64</StorageCapacity>
-    </ITProductDto>
-    <ITProductDto>
-      <ID>9473a927-4fc1-4e4e-89a4-fc54c170f93a</ID>
+      <ID>71e0a3dd-d8a7-4848-b30e-839ebb98dcdf</ID>
       <Article>LP003</Article>
       <Brand>Lenovo</Brand>
       <Model>Model 3</Model>
       <BasePrice>70000.0</BasePrice>
-      <SaleDate>2025-03-09T00:00:00+03:00</SaleDate>
+      <SaleDate>2025-03-28T00:00:00+03:00</SaleDate>
       <Type>Laptop</Type>
       <RAM>4</RAM>
       <ProcessorType>i7</ProcessorType>
@@ -76,12 +34,99 @@
       <StorageCapacity xsi:nil="true" />
     </ITProductDto>
     <ITProductDto>
-      <ID>d5ccccf4-6859-44bf-9483-b4a4756c5646</ID>
+      <ID>fcaec7a4-3a6a-4a8d-ad6c-db6d03366c3b</ID>
+      <Article>LP003</Article>
+      <Brand>Lenovo</Brand>
+      <Model>Model 3</Model>
+      <BasePrice>45000.0</BasePrice>
+      <SaleDate>2025-03-09T00:00:00+03:00</SaleDate>
+      <Type>Laptop</Type>
+      <RAM>16</RAM>
+      <ProcessorType>i3</ProcessorType>
+      <ScreenSize xsi:nil="true" />
+      <Has5G xsi:nil="true" />
+      <HasPenSupport xsi:nil="true" />
+      <StorageCapacity xsi:nil="true" />
+    </ITProductDto>
+    <ITProductDto>
+      <ID>c9439466-bbdc-4450-8b34-a92b10886934</ID>
+      <Article>SP004</Article>
+      <Brand>Samsung</Brand>
+      <Model>Galaxy 4</Model>
+      <BasePrice>44000.0</BasePrice>
+      <SaleDate>2025-03-23T00:00:00+03:00</SaleDate>
+      <Type>Smartphone</Type>
+      <RAM xsi:nil="true" />
+      <ScreenSize>6.901924784902209</ScreenSize>
+      <Has5G>false</Has5G>
+      <HasPenSupport xsi:nil="true" />
+      <StorageCapacity xsi:nil="true" />
+    </ITProductDto>
+    <ITProductDto>
+      <ID>0c5b3c1b-4d68-4fe8-81d4-ba87e2e50ad8</ID>
       <Article>TB005</Article>
       <Brand>Apple</Brand>
       <Model>Tab 5</Model>
-      <BasePrice>21000.0</BasePrice>
-      <SaleDate>2025-03-25T00:00:00+03:00</SaleDate>
+      <BasePrice>25000.0</BasePrice>
+      <SaleDate>2025-03-06T00:00:00+03:00</SaleDate>
+      <Type>Tablet</Type>
+      <RAM xsi:nil="true" />
+      <ScreenSize xsi:nil="true" />
+      <Has5G xsi:nil="true" />
+      <HasPenSupport>true</HasPenSupport>
+      <StorageCapacity>96</StorageCapacity>
+    </ITProductDto>
+    <ITProductDto>
+      <ID>5f660b50-ecc5-4fee-b93f-750b3091fae3</ID>
+      <Article>LP006</Article>
+      <Brand>Asus</Brand>
+      <Model>Model 6</Model>
+      <BasePrice>70000.0</BasePrice>
+      <SaleDate>2025-03-15T00:00:00+03:00</SaleDate>
+      <Type>Laptop</Type>
+      <RAM>8</RAM>
+      <ProcessorType>i9</ProcessorType>
+      <ScreenSize xsi:nil="true" />
+      <Has5G xsi:nil="true" />
+      <HasPenSupport xsi:nil="true" />
+      <StorageCapacity xsi:nil="true" />
+    </ITProductDto>
+    <ITProductDto>
+      <ID>1d5adcdf-5fb5-44d0-8679-a8d0a4e09340</ID>
+      <Article>LP006</Article>
+      <Brand>Asus</Brand>
+      <Model>Model 6</Model>
+      <BasePrice>75000.0</BasePrice>
+      <SaleDate>2025-03-17T00:00:00+03:00</SaleDate>
+      <Type>Laptop</Type>
+      <RAM>12</RAM>
+      <ProcessorType>i9</ProcessorType>
+      <ScreenSize xsi:nil="true" />
+      <Has5G xsi:nil="true" />
+      <HasPenSupport xsi:nil="true" />
+      <StorageCapacity xsi:nil="true" />
+    </ITProductDto>
+    <ITProductDto>
+      <ID>3b952845-8ef8-4759-935d-cce4db65a8e3</ID>
+      <Article>SP007</Article>
+      <Brand>Apple</Brand>
+      <Model>Galaxy 7</Model>
+      <BasePrice>23000.0</BasePrice>
+      <SaleDate>2025-03-12T00:00:00+03:00</SaleDate>
+      <Type>Smartphone</Type>
+      <RAM xsi:nil="true" />
+      <ScreenSize>7.368676321051847</ScreenSize>
+      <Has5G>false</Has5G>
+      <HasPenSupport xsi:nil="true" />
+      <StorageCapacity xsi:nil="true" />
+    </ITProductDto>
+    <ITProductDto>
+      <ID>4007b6c9-1619-4056-b7b2-6b8fb065d9ab</ID>
+      <Article>TB008</Article>
+      <Brand>Huawei</Brand>
+      <Model>Tab 8</Model>
+      <BasePrice>17000.0</BasePrice>
+      <SaleDate>2025-03-05T00:00:00+03:00</SaleDate>
       <Type>Tablet</Type>
       <RAM xsi:nil="true" />
       <ScreenSize xsi:nil="true" />
@@ -90,100 +135,43 @@
       <StorageCapacity>32</StorageCapacity>
     </ITProductDto>
     <ITProductDto>
-      <ID>21a241dd-b6bd-40a7-bc6c-51f323b4618b</ID>
-      <Article>LP006</Article>
-      <Brand>Asus</Brand>
-      <Model>Model 6</Model>
-      <BasePrice>75000.0</BasePrice>
-      <SaleDate>2025-03-06T00:00:00+03:00</SaleDate>
-      <Type>Laptop</Type>
-      <RAM>16</RAM>
-      <ProcessorType>i7</ProcessorType>
-      <ScreenSize xsi:nil="true" />
-      <Has5G xsi:nil="true" />
-      <HasPenSupport xsi:nil="true" />
-      <StorageCapacity xsi:nil="true" />
-    </ITProductDto>
-    <ITProductDto>
-      <ID>42c1d49f-cadc-4608-90c0-19a73638273b</ID>
-      <Article>LP006</Article>
-      <Brand>Asus</Brand>
-      <Model>Model 6</Model>
-      <BasePrice>40000.0</BasePrice>
-      <SaleDate>2025-03-20T00:00:00+03:00</SaleDate>
-      <Type>Laptop</Type>
-      <RAM>16</RAM>
-      <ProcessorType>i7</ProcessorType>
-      <ScreenSize xsi:nil="true" />
-      <Has5G xsi:nil="true" />
-      <HasPenSupport xsi:nil="true" />
-      <StorageCapacity xsi:nil="true" />
-    </ITProductDto>
-    <ITProductDto>
-      <ID>9a73e200-7c35-4715-aa39-7e4aa70127ba</ID>
-      <Article>SP007</Article>
-      <Brand>Apple</Brand>
-      <Model>Galaxy 7</Model>
-      <BasePrice>26000.0</BasePrice>
-      <SaleDate>2025-03-03T00:00:00+03:00</SaleDate>
-      <Type>Smartphone</Type>
-      <RAM xsi:nil="true" />
-      <ScreenSize>6.7379756642453685</ScreenSize>
-      <Has5G>false</Has5G>
-      <HasPenSupport xsi:nil="true" />
-      <StorageCapacity xsi:nil="true" />
-    </ITProductDto>
-    <ITProductDto>
-      <ID>e94f6ddb-2ab3-409b-a5e2-2cb83f724913</ID>
-      <Article>SP007</Article>
-      <Brand>Apple</Brand>
-      <Model>Galaxy 7</Model>
-      <BasePrice>38000.0</BasePrice>
-      <SaleDate>2025-03-22T00:00:00+03:00</SaleDate>
-      <Type>Smartphone</Type>
-      <RAM xsi:nil="true" />
-      <ScreenSize>6.247979218424554</ScreenSize>
-      <Has5G>false</Has5G>
-      <HasPenSupport xsi:nil="true" />
-      <StorageCapacity xsi:nil="true" />
-    </ITProductDto>
-    <ITProductDto>
-      <ID>bf16e299-76e7-4cb1-b93a-c1b598b9b22f</ID>
-      <Article>SP010</Article>
-      <Brand>Samsung</Brand>
-      <Model>Galaxy 10</Model>
-      <BasePrice>44000.0</BasePrice>
+      <ID>62745569-9087-47d8-b8ed-b3e170bcda98</ID>
+      <Article>TB008</Article>
+      <Brand>Huawei</Brand>
+      <Model>Tab 8</Model>
+      <BasePrice>23000.0</BasePrice>
       <SaleDate>2025-03-27T00:00:00+03:00</SaleDate>
-      <Type>Smartphone</Type>
+      <Type>Tablet</Type>
       <RAM xsi:nil="true" />
-      <ScreenSize>7.3722052799510465</ScreenSize>
-      <Has5G>false</Has5G>
-      <HasPenSupport xsi:nil="true" />
-      <StorageCapacity xsi:nil="true" />
+      <ScreenSize xsi:nil="true" />
+      <Has5G xsi:nil="true" />
+      <HasPenSupport>false</HasPenSupport>
+      <StorageCapacity>32</StorageCapacity>
     </ITProductDto>
     <ITProductDto>
-      <ID>11b03b95-fb6f-46dd-a022-0408a65c79ba</ID>
-      <Article>SP010</Article>
-      <Brand>Samsung</Brand>
-      <Model>Galaxy 10</Model>
-      <BasePrice>38000.0</BasePrice>
-      <SaleDate>2025-03-10T00:00:00+03:00</SaleDate>
-      <Type>Smartphone</Type>
-      <RAM xsi:nil="true" />
-      <ScreenSize>7.813184330774032</ScreenSize>
-      <Has5G>false</Has5G>
-      <HasPenSupport xsi:nil="true" />
-      <StorageCapacity xsi:nil="true" />
-    </ITProductDto>
-    <ITProductDto>
-      <ID>075d26e9-56fb-4954-8d01-d74e80b97ad1</ID>
-      <Article>LP012</Article>
-      <Brand>Asus</Brand>
-      <Model>Model 12</Model>
-      <BasePrice>70000.0</BasePrice>
-      <SaleDate>2025-03-07T00:00:00+03:00</SaleDate>
+      <ID>0d082764-8c1d-4266-903c-a20fd165def2</ID>
+      <Article>LP009</Article>
+      <Brand>Lenovo</Brand>
+      <Model>Model 9</Model>
+      <BasePrice>50000.0</BasePrice>
+      <SaleDate>2025-03-09T00:00:00+03:00</SaleDate>
       <Type>Laptop</Type>
-      <RAM>4</RAM>
+      <RAM>8</RAM>
+      <ProcessorType>i9</ProcessorType>
+      <ScreenSize xsi:nil="true" />
+      <Has5G xsi:nil="true" />
+      <HasPenSupport xsi:nil="true" />
+      <StorageCapacity xsi:nil="true" />
+    </ITProductDto>
+    <ITProductDto>
+      <ID>8a8be62f-73fd-4576-9a00-4b0d47b2380c</ID>
+      <Article>LP009</Article>
+      <Brand>Lenovo</Brand>
+      <Model>Model 9</Model>
+      <BasePrice>30000.0</BasePrice>
+      <SaleDate>2025-03-29T00:00:00+03:00</SaleDate>
+      <Type>Laptop</Type>
+      <RAM>16</RAM>
       <ProcessorType>i5</ProcessorType>
       <ScreenSize xsi:nil="true" />
       <Has5G xsi:nil="true" />
@@ -191,54 +179,98 @@
       <StorageCapacity xsi:nil="true" />
     </ITProductDto>
     <ITProductDto>
-      <ID>4cc4b410-d450-4e6b-9ebe-d267cc5be7b1</ID>
+      <ID>6ea1dc88-3035-496a-9fdd-943e006fbed0</ID>
+      <Article>SP010</Article>
+      <Brand>Samsung</Brand>
+      <Model>Galaxy 10</Model>
+      <BasePrice>44000.0</BasePrice>
+      <SaleDate>2025-03-04T00:00:00+03:00</SaleDate>
+      <Type>Smartphone</Type>
+      <RAM xsi:nil="true" />
+      <ScreenSize>5.304022672281828</ScreenSize>
+      <Has5G>false</Has5G>
+      <HasPenSupport xsi:nil="true" />
+      <StorageCapacity xsi:nil="true" />
+    </ITProductDto>
+    <ITProductDto>
+      <ID>4feef55b-e908-4626-aa0d-222c9049078f</ID>
+      <Article>LP012</Article>
+      <Brand>Asus</Brand>
+      <Model>Model 12</Model>
+      <BasePrice>55000.0</BasePrice>
+      <SaleDate>2025-03-13T00:00:00+03:00</SaleDate>
+      <Type>Laptop</Type>
+      <RAM>16</RAM>
+      <ProcessorType>i9</ProcessorType>
+      <ScreenSize xsi:nil="true" />
+      <Has5G xsi:nil="true" />
+      <HasPenSupport xsi:nil="true" />
+      <StorageCapacity xsi:nil="true" />
+    </ITProductDto>
+    <ITProductDto>
+      <ID>eeac990c-0dc6-40d8-9aa7-dc189c0da80c</ID>
+      <Article>LP012</Article>
+      <Brand>Asus</Brand>
+      <Model>Model 12</Model>
+      <BasePrice>55000.0</BasePrice>
+      <SaleDate>2025-03-25T00:00:00+03:00</SaleDate>
+      <Type>Laptop</Type>
+      <RAM>16</RAM>
+      <ProcessorType>i7</ProcessorType>
+      <ScreenSize xsi:nil="true" />
+      <Has5G xsi:nil="true" />
+      <HasPenSupport xsi:nil="true" />
+      <StorageCapacity xsi:nil="true" />
+    </ITProductDto>
+    <ITProductDto>
+      <ID>38e2b5d3-15e5-4f5c-8df4-1c17bdd0cc2f</ID>
       <Article>SP013</Article>
       <Brand>Apple</Brand>
       <Model>Galaxy 13</Model>
       <BasePrice>35000.0</BasePrice>
-      <SaleDate>2025-03-24T00:00:00+03:00</SaleDate>
+      <SaleDate>2025-03-03T00:00:00+03:00</SaleDate>
       <Type>Smartphone</Type>
       <RAM xsi:nil="true" />
-      <ScreenSize>5.905322062616875</ScreenSize>
-      <Has5G>false</Has5G>
-      <HasPenSupport xsi:nil="true" />
-      <StorageCapacity xsi:nil="true" />
-    </ITProductDto>
-    <ITProductDto>
-      <ID>a1a183ad-3bee-4822-803e-fc4ffe6a839d</ID>
-      <Article>SP016</Article>
-      <Brand>Samsung</Brand>
-      <Model>Galaxy 16</Model>
-      <BasePrice>23000.0</BasePrice>
-      <SaleDate>2025-03-14T00:00:00+03:00</SaleDate>
-      <Type>Smartphone</Type>
-      <RAM xsi:nil="true" />
-      <ScreenSize>5.086957868419366</ScreenSize>
-      <Has5G>false</Has5G>
-      <HasPenSupport xsi:nil="true" />
-      <StorageCapacity xsi:nil="true" />
-    </ITProductDto>
-    <ITProductDto>
-      <ID>de0d867c-f00d-45f3-964f-b83c97ea13ef</ID>
-      <Article>SP016</Article>
-      <Brand>Samsung</Brand>
-      <Model>Galaxy 16</Model>
-      <BasePrice>35000.0</BasePrice>
-      <SaleDate>2025-03-01T00:00:00+03:00</SaleDate>
-      <Type>Smartphone</Type>
-      <RAM xsi:nil="true" />
-      <ScreenSize>5.179231050223947</ScreenSize>
+      <ScreenSize>6.844160063090843</ScreenSize>
       <Has5G>true</Has5G>
       <HasPenSupport xsi:nil="true" />
       <StorageCapacity xsi:nil="true" />
     </ITProductDto>
     <ITProductDto>
-      <ID>89764b24-5c41-4918-b32e-16ed3e637d4a</ID>
+      <ID>2f9e01df-6a73-4c1a-8d14-ad41c387cfa8</ID>
+      <Article>TB017</Article>
+      <Brand>Apple</Brand>
+      <Model>Tab 17</Model>
+      <BasePrice>27000.0</BasePrice>
+      <SaleDate>2025-03-20T00:00:00+03:00</SaleDate>
+      <Type>Tablet</Type>
+      <RAM xsi:nil="true" />
+      <ScreenSize xsi:nil="true" />
+      <Has5G xsi:nil="true" />
+      <HasPenSupport>true</HasPenSupport>
+      <StorageCapacity>192</StorageCapacity>
+    </ITProductDto>
+    <ITProductDto>
+      <ID>362f9898-6a7b-4eeb-b70a-d1ef31e8b823</ID>
+      <Article>TB017</Article>
+      <Brand>Apple</Brand>
+      <Model>Tab 17</Model>
+      <BasePrice>29000.0</BasePrice>
+      <SaleDate>2025-03-26T00:00:00+03:00</SaleDate>
+      <Type>Tablet</Type>
+      <RAM xsi:nil="true" />
+      <ScreenSize xsi:nil="true" />
+      <Has5G xsi:nil="true" />
+      <HasPenSupport>true</HasPenSupport>
+      <StorageCapacity>128</StorageCapacity>
+    </ITProductDto>
+    <ITProductDto>
+      <ID>d50bfad1-126b-4278-b7d4-be33b933531a</ID>
       <Article>LP018</Article>
       <Brand>Asus</Brand>
       <Model>Model 18</Model>
-      <BasePrice>35000.0</BasePrice>
-      <SaleDate>2025-03-28T00:00:00+03:00</SaleDate>
+      <BasePrice>70000.0</BasePrice>
+      <SaleDate>2025-03-13T00:00:00+03:00</SaleDate>
       <Type>Laptop</Type>
       <RAM>8</RAM>
       <ProcessorType>i7</ProcessorType>
@@ -248,29 +280,43 @@
       <StorageCapacity xsi:nil="true" />
     </ITProductDto>
     <ITProductDto>
-      <ID>c4c055ad-a6df-4458-a8d4-eff4c56cd45a</ID>
+      <ID>e8bc0db8-5bf6-40fd-a632-3bf88e450870</ID>
+      <Article>SP019</Article>
+      <Brand>Apple</Brand>
+      <Model>Galaxy 19</Model>
+      <BasePrice>47000.0</BasePrice>
+      <SaleDate>2025-03-15T00:00:00+03:00</SaleDate>
+      <Type>Smartphone</Type>
+      <RAM xsi:nil="true" />
+      <ScreenSize>6.078708866666142</ScreenSize>
+      <Has5G>false</Has5G>
+      <HasPenSupport xsi:nil="true" />
+      <StorageCapacity xsi:nil="true" />
+    </ITProductDto>
+    <ITProductDto>
+      <ID>44887374-3da5-4d8a-8531-f7349b2322b8</ID>
       <Article>TB020</Article>
       <Brand>Huawei</Brand>
       <Model>Tab 20</Model>
-      <BasePrice>25000.0</BasePrice>
-      <SaleDate>2025-03-04T00:00:00+03:00</SaleDate>
+      <BasePrice>17000.0</BasePrice>
+      <SaleDate>2025-03-16T00:00:00+03:00</SaleDate>
       <Type>Tablet</Type>
       <RAM xsi:nil="true" />
       <ScreenSize xsi:nil="true" />
       <Has5G xsi:nil="true" />
-      <HasPenSupport>false</HasPenSupport>
-      <StorageCapacity>192</StorageCapacity>
+      <HasPenSupport>true</HasPenSupport>
+      <StorageCapacity>32</StorageCapacity>
     </ITProductDto>
     <ITProductDto>
-      <ID>14b27f14-4afe-4b5d-9368-db1040c8382e</ID>
+      <ID>1b05157c-480c-460c-bc77-dbb53f121117</ID>
       <Article>LP021</Article>
       <Brand>Lenovo</Brand>
       <Model>Model 21</Model>
-      <BasePrice>75000.0</BasePrice>
-      <SaleDate>2025-03-15T00:00:00+03:00</SaleDate>
+      <BasePrice>30000.0</BasePrice>
+      <SaleDate>2025-03-26T00:00:00+03:00</SaleDate>
       <Type>Laptop</Type>
-      <RAM>12</RAM>
-      <ProcessorType>i5</ProcessorType>
+      <RAM>4</RAM>
+      <ProcessorType>i7</ProcessorType>
       <ScreenSize xsi:nil="true" />
       <Has5G xsi:nil="true" />
       <HasPenSupport xsi:nil="true" />

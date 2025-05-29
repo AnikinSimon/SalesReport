@@ -94,25 +94,25 @@ namespace SalesReport
             }
         }
 
-        private void SaveReport()
-        {
-            try
-            {
-                string reportsPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Data", "Reports");
-                string fileName = $"Отчет_{DateTime.Now:yyyyMMdd_HHmmss}.{(_serializer is JsonSerializer ? "json" : "xml")}";
-                string filePath = System.IO.Path.Combine(reportsPath, fileName);
+        //private void SaveReport()
+        //{
+        //    try
+        //    {
+        //        string reportsPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Data", "Reports");
+        //        string fileName = $"Отчет_{DateTime.Now:yyyyMMdd_HHmmss}.{(_serializer is JsonSer ? "json" : "xml")}";
+        //        string filePath = System.IO.Path.Combine(reportsPath, fileName);
 
-                var combinedReport = new Report(_reports, _reports.Min(r => r.StartDate), _reports.Max(r => r.EndDate));
-                string serialized = _serializer.Serialize(combinedReport);
+        //        var combinedReport = new Report(_reports, _reports.Min(r => r.StartDate), _reports.Max(r => r.EndDate));
+        //        string serialized = _serializer.Serialize(combinedReport);
 
-                File.WriteAllText(filePath, serialized);
-                MessageBox.Show("Отчет успешно сохранен", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при сохранении отчета: {ex.Message}", "Ошибка",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+        //        File.WriteAllText(filePath, serialized);
+        //        MessageBox.Show("Отчет успешно сохранен", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Ошибка при сохранении отчета: {ex.Message}", "Ошибка",
+        //            MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
     }
 }

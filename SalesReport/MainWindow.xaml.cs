@@ -34,7 +34,10 @@ namespace SalesReport
             InitializeComponent();
             Trace.WriteLine($"HElloe");
             if (!isJson)
+            {
                 _serializer = new Model.Data.XmlSer();
+            }
+                
             LoadReports(isJson);
             SetupEventHandlers();
             dpReportDate.SelectedDate = DateTime.Today;
@@ -59,26 +62,33 @@ namespace SalesReport
                     try
                     {
                         var content = File.ReadAllText(file);
-                        if (isJson)
+
+                        if (file.EndsWith(_serializer.Extension))
                         {
-                            
-                            if (file.EndsWith(".json"))
-                            {
-                                Trace.WriteLine(file);
-                                //ReportDto report = new Model.Data.JsonSerializer().Deserialize<ReportDto>(content);
-                                ReportDto report = _serializer.Deserialize<ReportDto>(content);
-                                _reports.Add(Report.FromDto(report));
-                            }
-                        } else
-                        {
-                            if (file.EndsWith(".xml"))
-                            {
-                                Trace.WriteLine(file);
-                                ReportDto report = _serializer.Deserialize<ReportDto>(content);
-                                Trace.WriteLine(report);
-                                _reports.Add(Report.FromDto(report));
-                            }
+                            ReportDto dto = _serializer.Deserialize<ReportDto>(content);
+                            _reports.Add(Report.FromDto(dto));  
                         }
+                        
+                        //if (isJson)
+                        //{
+                            
+                        //    if (file.EndsWith(".json"))
+                        //    {
+                        //        Trace.WriteLine(file);
+                        //        //ReportDto report = new Model.Data.JsonSerializer().Deserialize<ReportDto>(content);
+                        //        ReportDto report = _serializer.Deserialize<ReportDto>(content);
+                        //        _reports.Add(Report.FromDto(report));
+                        //    }
+                        //} else
+                        //{
+                        //    if (file.EndsWith(".xml"))
+                        //    {
+                        //        Trace.WriteLine(file);
+                        //        ReportDto report = _serializer.Deserialize<ReportDto>(content);
+                        //        Trace.WriteLine(report);
+                        //        _reports.Add(Report.FromDto(report));
+                        //    }
+                        //}
 
                        
                     }
@@ -192,33 +202,41 @@ namespace SalesReport
             // Сохранение отчетов
             foreach (var report in reports)
             {
-                foreach(var device in report.Devices)
-                {
-                    Trace.WriteLine(device);
-                }
-                if (isJson)
-                {
-                    //Trace.WriteLine(report);
-                    //var json = new Model.Data.JsonSerializer().Serialize(report);
-                    string json = _serializer.Serialize<ReportDto>(report.ToDto());
-                    //Trace.WriteLine(json);
-                    File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}.json"), json);
-                }
-                else
-                {
-                    try
-                    {
-                        var dto = report.ToDto();
-                        Trace.WriteLine(dto.GetType().Name);
-                        var xm = new Model.Data.XmlSerializer().Serialize(dto);
-                        File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}.xml"), xm);
-                    } catch (Exception ex)
-                    {
-                        Trace.WriteLine(ex.ToString());
-                    }
-                    
-                }
-                
+                //foreach(var device in report.Devices)
+                //{
+                //    Trace.WriteLine(device);
+                //}
+                //if (isJson)
+                //{
+                //    //Trace.WriteLine(report);
+                //    //var json = new Model.Data.JsonSerializer().Serialize(report);
+                //    string json = _serializer.Serialize<ReportDto>(report.ToDto());
+                //    //Trace.WriteLine(json);
+                //    File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}.json"), json);
+                //}
+                //else
+                //{
+
+                //    string xm = _serializer.Serialize<ReportDto>(report.ToDto());
+                //    //Trace.WriteLine(json);
+                //    File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}.xml"), xm);
+                //    //try
+                //    //{
+                //    //    var dto = report.ToDto();
+                //    //    Trace.WriteLine(dto.GetType().Name);
+                //    //    var xm = new Model.Data.XmlSerializer().Serialize(dto);
+                //    //    File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}.xml"), xm);
+                //    //} catch (Exception ex)
+                //    //{
+                //    //    Trace.WriteLine(ex.ToString());
+                //    //}
+
+                //}
+
+                string serialized = _serializer.Serialize<ReportDto>(report.ToDto());
+
+
+                File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}{_serializer.Extension}"), serialized);
             }
         }
 
@@ -240,8 +258,10 @@ namespace SalesReport
 
             Trace.WriteLine("CHANGE TYPE");
             string newExt = cbSaveFormat.SelectedIndex == 0 ? ".json" : ".xml";
-            string curExt = cbSaveFormat.SelectedIndex == 0 ? ".xml" : ".json";
-            SerializerBase tempSerializer = cbSaveFormat.SelectedIndex == 0 ?  new JsonSer() : new XmlSer();
+            string curExt = _serializer.Extension;
+            if (curExt == newExt)
+                return;
+            ISerializer tempSerializer = cbSaveFormat.SelectedIndex == 0 ?  new JsonSer() : new XmlSer();
             string reportsPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Data", "Reports");
             Trace.WriteLine(curExt);
 
@@ -256,7 +276,7 @@ namespace SalesReport
                         string fileName = $"{System.IO.Path.GetFileNameWithoutExtension(file)}{newExt}";
                         string filePath = System.IO.Path.Combine(reportsPath, fileName);
                         string serialized = tempSerializer.Serialize(report);
-                    File.WriteAllText(filePath, serialized);
+                        File.WriteAllText(filePath, serialized);
                   }
             }
             _serializer = tempSerializer;

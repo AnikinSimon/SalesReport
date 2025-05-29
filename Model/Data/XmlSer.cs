@@ -9,6 +9,7 @@ namespace Model.Data
 {
     public class XmlSer : SerializerBase
     {
+        public override string Extension => ".xml";
         public override T Deserialize<T>(string data)
         {
             var serializer = new System.Xml.Serialization.XmlSerializer(typeof(T));

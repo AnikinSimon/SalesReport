@@ -25,6 +25,6 @@ namespace Model.Core
             Has5G = has5G;
         }
 
-        public Smartphone() { }
+        //public Smartphone() { }
     }
 }

@@ -14,8 +14,6 @@ namespace Model.Core
         public List<ITProduct> Devices { get; private set; }
         public bool IsSelected { get; set; }
 
-        public Report() { }
-
         public Report(string name, DateTime start, DateTime end, List<ITProduct> devices)
         {
             Name = name;

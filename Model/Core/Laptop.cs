@@ -31,6 +31,6 @@ namespace Model.Core
             ProcessorType = processorType;
         }
 
-        public Laptop() { }
+        //public Laptop() { }
     }
 }

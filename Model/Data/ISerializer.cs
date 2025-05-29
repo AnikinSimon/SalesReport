@@ -10,5 +10,7 @@ namespace Model.Data
     {
         public string Serialize<T>(T obj) where T: class;
         public T Deserialize<T>(string data) where T : class;
+
+        public string Extension { get; }
     }
 }

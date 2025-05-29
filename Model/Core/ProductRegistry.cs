@@ -9,8 +9,6 @@ namespace Model.Core
     public static class ProductRegistry
     {
         private static readonly Dictionary<Guid, string> _productReports = new();
-        private static readonly object _lock = new();
-
         public static bool TryRegisterProduct(ITProduct product, string reportName)
         {
             if (_productReports.ContainsKey(product.ID))

@@ -10,6 +10,7 @@ namespace Model.Data
 {
     public class JsonSer : SerializerBase
     {
+        public override string Extension => ".json";
         public override T Deserialize<T>(string data)
         {
             T obj = JsonConvert.DeserializeObject<T>(data);
