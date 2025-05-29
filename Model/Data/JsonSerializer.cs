@@ -27,6 +27,7 @@ namespace Model.Data
 
         public override string Serialize<T>(T obj)
         {
+
             return System.Text.Json.JsonSerializer.Serialize(obj, _options);
         }
 

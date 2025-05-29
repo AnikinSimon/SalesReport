@@ -9,8 +9,11 @@ namespace Model.Data
 {
     public class XmlSerializer : SerializerBase
     {
+        // private static readonly System.Xml.Serialization.XmlSerializer _reportSerializer = 
+        //new System.Xml.Serialization.XmlSerializer(typeof(Report), new Type[] { typeof(Laptop), typeof(Smartphone), typeof(Tablet) });
+
         private static readonly System.Xml.Serialization.XmlSerializer _reportSerializer = 
-            new System.Xml.Serialization.XmlSerializer(typeof(Report), new Type[] { typeof(Laptop), typeof(Smartphone), typeof(Tablet) });
+            new System.Xml.Serialization.XmlSerializer(typeof(ReportDto), new Type[] { typeof(ITProductDto) });
 
         public override string Serialize<T>(T obj)
         {

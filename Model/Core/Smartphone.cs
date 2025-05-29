@@ -8,13 +8,22 @@ namespace Model.Core
 {
     public class Smartphone : ITProduct
     {
-        public double ScreenSize { get; set; } // в дюймах
-        public bool Has5G { get; set; }
+        public double ScreenSize { get; private set; } // в дюймах
+        public bool Has5G { get; private set; }
 
         public override decimal Price => BasePrice + (decimal)(ScreenSize * 3000) +
                                       (Has5G ? 8000 : 0);
 
         //public override decimal Price => BasePrice;
+
+
+        public Smartphone(string article, string brand, string model, decimal basePrice,
+                        DateTime? saleDate, double screenSize, bool has5G)
+            : base(article, brand, model, basePrice, saleDate)
+        {
+            ScreenSize = screenSize;
+            Has5G = has5G;
+        }
 
         public Smartphone() { }
     }

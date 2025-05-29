@@ -24,6 +24,7 @@ namespace SalesReport
     public partial class MainWindow : Window
     {
         private List<Report> _reports = new();
+        private List<Report> _reportsInPeriod = new();
         private SerializerBase _currentSerializer = new Model.Data.JsonSerializer();
 
         public MainWindow()
@@ -60,16 +61,17 @@ namespace SalesReport
                             if (file.EndsWith(".json"))
                             {
                                 Trace.WriteLine(file);
-                                Report report = new Model.Data.JsonSerializer().Deserialize<Report>(content);
-                                _reports.Add(report);
+                                ReportDto report = new Model.Data.JsonSerializer().Deserialize<ReportDto>(content);
+                                _reports.Add(Report.FromDto(report));
                             }
                         } else
                         {
                             if (file.EndsWith(".xml"))
                             {
                                 Trace.WriteLine(file);
-                                Report report = new Model.Data.XmlSerializer().Deserialize<Report>(content);
-                                _reports.Add(report);
+                                ReportDto report = new Model.Data.XmlSerializer().Deserialize<ReportDto>(content);
+                                Trace.WriteLine(report);
+                                _reports.Add(Report.FromDto(report));
                             }
                         }
 
@@ -82,7 +84,7 @@ namespace SalesReport
                     }
                 }
 
-                lbAvailableReports.ItemsSource = _reports;
+                lbAvailableReports.ItemsSource = _reportsInPeriod;
             }
             catch (Exception ex)
             {
@@ -95,6 +97,7 @@ namespace SalesReport
 
         private void GenerateSampleReports(string path, bool isJson = true)
         {
+            Trace.WriteLine("GENERATED");
             var random = new Random();
             var devices = new List<ITProduct>();
 
@@ -103,107 +106,13 @@ namespace SalesReport
             {
                 ITProduct device = (i % 3) switch
                 {
-                    0 => new Laptop
-                    {
-                        Article = $"LP{i:000}",
-                        Brand = i % 2 == 0 ? "Asus" : "Lenovo",
-                        Model = $"Model {i}",
-                        BasePrice = 30000 + random.Next(0, 10) * 5000,
-                        RAM = 4 * (1 + random.Next(0, 4)),
-                        ProcessorType = new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)],
-                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
-                    },
-                    1 => new Smartphone
-                    {
-                        Article = $"SP{i:000}",
-                        Brand = i % 2 == 0 ? "Samsung" : "Apple",
-                        Model = $"Galaxy {i}",
-                        BasePrice = 20000 + random.Next(0, 10) * 3000,
-                        ScreenSize = 5 + random.NextDouble() * 3,
-                        Has5G = random.Next(0, 2) == 1,
-                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
-                    },
-                    _ => new Model.Core.Tablet
-                    {
-                        Article = $"TB{i:000}",
-                        Brand = i % 2 == 0 ? "Huawei" : "Apple",
-                        Model = $"Tab {i}",
-                        BasePrice = 15000 + random.Next(0, 10) * 2000,
-                        HasPenSupport = random.Next(0, 2) == 1,
-                        StorageCapacity = 32 * (1 + random.Next(0, 8)),
-                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
-                    }
-                };
-                ITProduct device2 = (i % 3) switch
-                {
-                    0 => new Laptop
-                    {
-                        Article = $"LP{i:000}",
-                        Brand = i % 2 == 0 ? "Asus" : "Lenovo",
-                        Model = $"Model {i}",
-                        BasePrice = 30000 + random.Next(0, 10) * 5000,
-                        RAM = 4 * (1 + random.Next(0, 4)),
-                        ProcessorType = new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)],
-                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
-                    },
-                    1 => new Smartphone
-                    {
-                        Article = $"SP{i:000}",
-                        Brand = i % 2 == 0 ? "Samsung" : "Apple",
-                        Model = $"Galaxy {i}",
-                        BasePrice = 20000 + random.Next(0, 10) * 3000,
-                        ScreenSize = 5 + random.NextDouble() * 3,
-                        Has5G = random.Next(0, 2) == 1,
-                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
-                    },
-                    _ => new Model.Core.Tablet
-                    {
-                        Article = $"TB{i:000}",
-                        Brand = i % 2 == 0 ? "Huawei" : "Apple",
-                        Model = $"Tab {i}",
-                        BasePrice = 15000 + random.Next(0, 10) * 2000,
-                        HasPenSupport = random.Next(0, 2) == 1,
-                        StorageCapacity = 32 * (1 + random.Next(0, 8)),
-                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
-                    }
+                    0 => new Laptop($"LP{i:000}", i % 2 == 0 ? "Asus" : "Lenovo", $"Model {i}", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 30)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]),
+
+                    1 => new Smartphone ($"SP{i:000}", i % 2 == 0 ? "Samsung" : "Apple", $"Galaxy {i}", 20000 + random.Next(0, 10) * 3000, DateTime.Today.AddDays(-random.Next(0, 30)), 5 + random.NextDouble() * 3, random.Next(0, 2) == 1),
+                    _ => new Model.Core.Tablet($"TB{i:000}", i % 2 == 0 ? "Huawei" : "Apple", $"Tab {i}", 15000 + random.Next(0, 10) * 2000, DateTime.Today.AddDays(-random.Next(0, 30)),  random.Next(0, 2) == 1, 32 * (1 + random.Next(0, 8)))
                 };
 
-                ITProduct device3 = (i % 3) switch
-                {
-                    0 => new Laptop
-                    {
-                        Article = $"LP{i:000}",
-                        Brand = i % 2 == 0 ? "Asus" : "Lenovo",
-                        Model = $"Model {i}",
-                        BasePrice = 30000 + random.Next(0, 10) * 5000,
-                        RAM = 4 * (1 + random.Next(0, 4)),
-                        ProcessorType = new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)],
-                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
-                    },
-                    1 => new Smartphone
-                    {
-                        Article = $"SP{i:000}",
-                        Brand = i % 2 == 0 ? "Samsung" : "Apple",
-                        Model = $"Galaxy {i}",
-                        BasePrice = 20000 + random.Next(0, 10) * 3000,
-                        ScreenSize = 5 + random.NextDouble() * 3,
-                        Has5G = random.Next(0, 2) == 1,
-                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
-                    },
-                    _ => new Model.Core.Tablet
-                    {
-                        Article = $"TB{i:000}",
-                        Brand = i % 2 == 0 ? "Huawei" : "Apple",
-                        Model = $"Tab {i}",
-                        BasePrice = 15000 + random.Next(0, 10) * 2000,
-                        HasPenSupport = random.Next(0, 2) == 1,
-                        StorageCapacity = 32 * (1 + random.Next(0, 8)),
-                        SaleDate = DateTime.Today.AddDays(-random.Next(0, 30))
-                    }
-                };
                 devices.Add(device);
-                devices.Add(device2);
-                devices.Add(device3);
             }
 
 
@@ -234,10 +143,20 @@ namespace SalesReport
                     var json = new Model.Data.JsonSerializer().Serialize(report);
                     //Trace.WriteLine(json);
                     File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}.json"), json);
-                } else
+                }
+                else
                 {
-                    var xm = new Model.Data.XmlSerializer().Serialize(report);
-                    File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}.xml"), xm);
+                    try
+                    {
+                        var dto = report.ToDto();
+                        Trace.WriteLine(dto.GetType().Name);
+                        var xm = new Model.Data.XmlSerializer().Serialize(dto);
+                        File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}.xml"), xm);
+                    } catch (Exception ex)
+                    {
+                        Trace.WriteLine(ex.ToString());
+                    }
+                    
                 }
                 
             }
@@ -265,6 +184,8 @@ namespace SalesReport
             var period = (cbReportPeriod.SelectedItem as ComboBoxItem)?.Content.ToString();
             var deviceType = (cbDeviceType.SelectedItem as ComboBoxItem)?.Content.ToString();
 
+            _reportsInPeriod.Clear();
+
             foreach (Report report in _reports)
             {
                 //if (report is null) continue;
@@ -277,16 +198,18 @@ namespace SalesReport
                          "Планшеты" => d is Model.Core.Tablet,
                          _ => true
                      }));
+                if (report.IsSelected)
+                    _reportsInPeriod.Add(report);
             }
 
             lbAvailableReports.Items.Refresh();
-            btnShowReport.IsEnabled = _reports.Any(r => r.IsSelected);
-            btnPriceHistory.IsEnabled = _reports.Any(r => r.IsSelected);
+            btnShowReport.IsEnabled = _reportsInPeriod.Any(r => r.IsSelected);
+            btnPriceHistory.IsEnabled = _reportsInPeriod.Any(r => r.IsSelected);
         }
 
         private void ShowReport()
         {
-            var selectedReports = _reports.Where(r => r.IsSelected).ToList();
+            var selectedReports = _reportsInPeriod.Where(r => r.IsSelected).ToList();
             var deviceType = (cbDeviceType.SelectedItem as ComboBoxItem)?.Content.ToString();
             Type tp = deviceType switch
             {

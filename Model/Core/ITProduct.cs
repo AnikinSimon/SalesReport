@@ -34,15 +34,27 @@ namespace Model.Core
     [JsonConverter(typeof(PolymorphicConverter<ITProduct>))]
     public abstract class ITProduct
     {
-        public string Article { get; set; }
-        public string Brand { get; set; }
-        public string Model { get; set; }
-        public DateTime? SaleDate { get; set; }
-        public decimal BasePrice { get; set; }
+        public string Article { get; private set; }
+        public string Brand { get; private set; }
+        public string Model { get; private set; }
+        public DateTime? SaleDate { get; private set; }
+        public decimal BasePrice { get; private set; }
+
 
         public virtual decimal Price => BasePrice;
 
         [JsonIgnore]
         public virtual string Type => GetType().Name;
+
+        public ITProduct(string article, string brand, string model, decimal basePrice, DateTime? saleDate)
+        {
+            Article = article;
+            Brand = brand;
+            Model = model;
+            BasePrice = basePrice;
+            SaleDate = saleDate;
+        }
+
+        public ITProduct() { }
     }
 }

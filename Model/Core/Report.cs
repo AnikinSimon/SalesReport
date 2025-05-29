@@ -8,10 +8,10 @@ namespace Model.Core
 {
     public partial class Report : IReportable
     {
-        public string Name { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public List<ITProduct> Devices { get; set; }
+        public string Name { get; private set; }
+        public DateTime StartDate { get; private set; }
+        public DateTime EndDate { get; private set; }
+        public List<ITProduct> Devices { get; private set; }
         public bool IsSelected { get; set; }
 
         public Report() { }
@@ -50,5 +50,45 @@ namespace Model.Core
                 _ => false
             };
         }
+    }
+
+    public partial class Report
+    {
+
+        // Фабричный метод для создания отчета
+        public static Report Create(string name, DateTime start, DateTime end, List<ITProduct> devices)
+        {
+            return new Report(name, start, end, devices);
+        }
+
+        // Метод для сериализации
+        public ReportDto ToDto()
+        {
+            return new ReportDto
+            {
+                Name = Name,
+                StartDate = StartDate,
+                EndDate = EndDate,
+                Devices = Devices.Select(d => d.ToDto()).ToList()
+            };
+        }
+
+        // Метод для десериализации
+        public static Report FromDto(ReportDto dto)
+        {
+            return new Report(
+                dto.Name,
+                dto.StartDate,
+                dto.EndDate,
+                dto.Devices.Select(ITProductExtensions.FromDto).ToList());
+        }
+    }
+
+    public class ReportDto
+    {
+        public string Name { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public List<ITProductDto> Devices { get; set; }
     }
 }
