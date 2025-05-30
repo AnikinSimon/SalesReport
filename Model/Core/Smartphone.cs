@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,11 @@ namespace Model.Core
         {
             ScreenSize = screenSize;
             Has5G = has5G;
+        }
+
+        public override string ToString()
+        {
+            return String.Join(" ", base.ToString(), $"ScreenSize: {ScreenSize}", $"Has5G: {Has5G}");
         }
 
         //public Smartphone() { }

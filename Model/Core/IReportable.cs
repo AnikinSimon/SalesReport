@@ -9,6 +9,8 @@ namespace Model.Core
     public interface IReportable
     {
         void Sort(bool ascending);
+
         IEnumerable<ITProduct> Select(Type deviceType);
+        
     }
 }

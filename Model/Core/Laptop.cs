@@ -31,6 +31,11 @@ namespace Model.Core
             ProcessorType = processorType;
         }
 
+        public override string ToString()
+        {
+            return String.Join(" ", base.ToString(), $"RAM: {RAM}", $"ProcessorType: {ProcessorType}");
+        }
+
         //public Laptop() { }
     }
 }

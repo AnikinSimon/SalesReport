@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -21,7 +22,6 @@ namespace Model.Core
 
         public virtual decimal Price => BasePrice;
 
-        [JsonIgnore]
         public virtual string Type => GetType().Name;
 
         public ITProduct(Guid id, string article, string brand, string model, decimal basePrice, DateTime? saleDate)
@@ -32,6 +32,16 @@ namespace Model.Core
             BasePrice = basePrice;
             SaleDate = saleDate;
             ID = id;
+        }
+
+        public override string ToString()
+        {
+            return String.Join(" ", $"ID: {ID}",
+            $"Article: {Article}",
+            $"Brand: {Brand}",
+            $"Model: {Model}",
+            $"Price: {Price}",
+            $"SaleDate: {SaleDate}");
         }
 
         //public ITProduct() { }

@@ -29,6 +29,7 @@ namespace SalesReport
         private readonly DateTime _startTime;
         private readonly DateTime _endTime;
 
+
         public ReportWindow(List<Report> reports, ISerializer serializer, Type tp, DateTime startTime, DateTime endTime)
 
         {
@@ -49,11 +50,11 @@ namespace SalesReport
             // Объединяем устройства из всех отчетов
             Trace.WriteLine(_startTime);
             Trace.WriteLine(_endTime);
-            var allDevices = _reports.SelectMany(r => r.Devices)
-                                   .Where(d => _goodsType == typeof(ITProduct) || d.GetType() == _goodsType)
-                                   .Where(d => d.SaleDate >= _startTime && d.SaleDate <= _endTime)
-                                   .OrderBy(d => d.Article)
-                                   .ToList();
+
+            var allDevices = _reports.SelectMany(r => r.Select(_goodsType))
+                .Where(d => (d.SaleDate >= _startTime && d.SaleDate <= _endTime))
+                .OrderBy(d => d.Article)
+                .ToList();
 
             dgDevices.ItemsSource = allDevices;
             cbArticle.ItemsSource = allDevices.DistinctBy(g => g.Article);

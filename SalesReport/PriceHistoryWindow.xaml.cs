@@ -54,17 +54,32 @@ namespace SalesReport
 
     public class PriceHistoryViewModel
     {
-        public SeriesCollection SeriesCollection { get; set; }
-        public string[] DateLabels { get; set; }
-        public ChartValues<decimal> PriceValues { get; set; }
+        public SeriesCollection SeriesCollection { get; private set; }
+        public string[] DateLabels { get; private set; }
+        public ChartValues<decimal> PriceValues { get; private set; }
 
         public PriceHistoryViewModel(List<Report> reports, string article, DateTime startTime, DateTime endTime)
         {
             // Получаем все продажи данного товара
+            //var sales = reports
+            //    .SelectMany(r => r.Devices)
+            //    .Where(d => d.Article == article && d.SaleDate.HasValue)
+            //    .Where(d => d.SaleDate >= startTime && d.SaleDate <= endTime)
+            //    .GroupBy(d => d.SaleDate)
+            //    .Select(g => new
+            //    {
+            //        Date = g.Key,
+            //        AvgPrice = g.Average(d => d.Price),
+            //    })
+            //    .OrderBy(x => x.Date)
+            //    .ToList();
+
+            // делегат
             var sales = reports
-                .SelectMany(r => r.Devices)
-                .Where(d => d.Article == article && d.SaleDate.HasValue)
-                .Where(d => d.SaleDate >= startTime && d.SaleDate <= endTime)
+                .SelectMany(r => r.Select(
+                    d => d.Article == article && d.SaleDate.HasValue,
+                    d => d.SaleDate >= startTime && d.SaleDate <= endTime)
+                )
                 .GroupBy(d => d.SaleDate)
                 .Select(g => new
                 {

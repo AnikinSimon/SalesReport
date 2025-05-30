@@ -25,5 +25,32 @@ namespace Model.Core
         public int? StorageCapacity { get; set; }
 
         public ITProductDto() { }
+
+        public ITProductDto(ITProduct product) {
+            Article = product.Article;
+            Brand = product.Brand;
+            Model = product.Model;
+            BasePrice = product.BasePrice;
+            SaleDate = product.SaleDate;
+            Type = product.Type;
+            ID = product.ID;
+
+            switch (product)
+            {
+                case Laptop laptop:
+                    RAM = laptop.RAM;
+                    ProcessorType = laptop.ProcessorType;
+                    break;
+                case Smartphone phone:
+                    ScreenSize = phone.ScreenSize;
+                    Has5G = phone.Has5G;
+                    break;
+                case Tablet tablet:
+                    HasPenSupport = tablet.HasPenSupport;
+                    StorageCapacity = tablet.StorageCapacity;
+                    break;
+            }
+
+        }
     }
 }

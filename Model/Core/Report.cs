@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model.Core
 {
-    public partial class Report : IReportable
+    public partial class Report : IReportable, IReportSelectable
     {
         public string Name { get; private set; }
         public DateTime StartDate { get; private set; }
@@ -28,6 +28,24 @@ namespace Model.Core
             Devices = ascending ?
                 Devices.OrderBy(d => d.Article).ToList() :
                 Devices.OrderByDescending(d => d.Article).ToList();
+        }
+
+        //public IEnumerable<ITProduct> Select(Type deviceType, Func<ITProduct, bool> filter = null)
+        //{
+        //    IEnumerable<ITProduct> res = Select(deviceType);
+        //    if (filter != null)
+        //        res = res.Where(filter);
+        //    return res;
+        //}
+
+        public IEnumerable<ITProduct> Select(params Func<ITProduct, bool>[] selectParams)
+        {
+            IEnumerable<ITProduct> res = Devices;
+            foreach (Func<ITProduct, bool> filter in selectParams)
+            {
+                res = res.Where(filter);
+            }
+            return res;
         }
 
         public IEnumerable<ITProduct> Select(Type deviceType)
@@ -90,6 +108,15 @@ namespace Model.Core
         public DateTime EndDate { get; set; }
         public List<ITProductDto> Devices { get; set; }
 
-        public ReportDto() { }  
+        public ReportDto() { }
+
+        public ReportDto(Report report) {
+            Name = report.Name;
+            StartDate = report.StartDate;
+            EndDate = report.EndDate;
+            Devices = report.Devices.Select(d => new ITProductDto(d)).ToList();
+        }
+
+
     }
 }

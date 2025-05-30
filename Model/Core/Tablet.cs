@@ -25,6 +25,11 @@ namespace Model.Core
             StorageCapacity = storageCapacity;
         }
 
+        public override string ToString()
+        {
+            return String.Join(" ",  base.ToString(), $"HasPenSupport: {HasPenSupport}", $"StorageCapacity: {StorageCapacity}");
+        }
+
         //public Tablet() { }
     }
 }
