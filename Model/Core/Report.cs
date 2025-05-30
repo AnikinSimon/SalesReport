@@ -12,7 +12,6 @@ namespace Model.Core
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
         public List<ITProduct> Devices { get; private set; }
-        public bool IsSelected { get; set; }
 
         public Report(string name, DateTime start, DateTime end, List<ITProduct> devices)
         {

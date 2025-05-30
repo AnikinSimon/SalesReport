@@ -84,7 +84,7 @@ namespace SalesReport
         {
             if (cbArticle.SelectedItem is ITProduct selectedDevice)
             {
-                var selectedReports = _reports.Where(r => r.IsSelected).ToList();
+                var selectedReports = _reports.ToList();
                 var priceHistoryWindow = new PriceHistoryWindow(selectedReports, selectedDevice.Article, _startTime, _endTime);
                 priceHistoryWindow.Show();
             }

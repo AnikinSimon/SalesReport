@@ -25,7 +25,8 @@ namespace SalesReport
     public partial class MainWindow : Window
     {
         private List<Report> _reports = new();
-        private List<Report> _reportsInPeriod = new();
+        //private List<Report> _reportsInPeriod = new();
+        private List<ReportChecking> _reportsInPeriod = new();
         private ISerializer _serializer = new Model.Data.JsonSer();
 
         public MainWindow()
@@ -218,7 +219,17 @@ namespace SalesReport
             foreach (Report report in _reports)
             {
                 //if (report is null) continue;
-                report.IsSelected = report.ContainsSalesInPeriod(dpReportDate.SelectedDate.Value, period) &&
+                //report.IsSelected = report.ContainsSalesInPeriod(dpReportDate.SelectedDate.Value, period) &&
+                //    (deviceType == "Все устройства" ||
+                //     report.Devices.Any(d => deviceType switch
+                //     {
+                //         "Ноутбуки" => d is Laptop,
+                //         "Смартфоны" => d is Smartphone,
+                //         "Планшеты" => d is Model.Core.Tablet,
+                //         _ => true
+                //     }));
+
+                bool isSelected = report.ContainsSalesInPeriod(dpReportDate.SelectedDate.Value, period) &&
                     (deviceType == "Все устройства" ||
                      report.Devices.Any(d => deviceType switch
                      {
@@ -227,8 +238,13 @@ namespace SalesReport
                          "Планшеты" => d is Model.Core.Tablet,
                          _ => true
                      }));
-                if (report.IsSelected)
-                    _reportsInPeriod.Add(report);
+                if (isSelected)
+                {
+                    ReportChecking ch = new ReportChecking(report);
+                    ch.IsSelected = true;
+                    _reportsInPeriod.Add(ch);
+                }
+                    
             }
 
             lbAvailableReports.Items.Refresh();
@@ -259,7 +275,7 @@ namespace SalesReport
                 "Год" => startTime.AddYears(1),
                 _ => startTime
             };
-            var reportWindow = new ReportWindow(selectedReports, _serializer, tp, startTime, endTime);
+            var reportWindow = new ReportWindow(selectedReports.Select(r => r.BaseReport).ToList(), _serializer, tp, startTime, endTime);
             reportWindow.Show();
         }
 
