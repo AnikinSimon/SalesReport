@@ -59,5 +59,16 @@ namespace Model.Core
                 _ => throw new InvalidOperationException($"Unknown product type: {dto.Type}")
             };
         }
+
+        public static Type TypeByName(string name)
+        {
+            return name switch
+            {
+                "Ноутбуки" => typeof(Laptop),
+                "Смартфоны" => typeof(Smartphone),
+                "Планшеты" => typeof(Model.Core.Tablet),
+                _ => typeof(ITProduct),
+            };
+        }
     }
 }

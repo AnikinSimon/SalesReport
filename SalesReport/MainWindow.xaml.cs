@@ -177,7 +177,6 @@ namespace SalesReport
 
         }
 
-
         private void ChangeSerializationType()
         {
 
@@ -257,24 +256,26 @@ namespace SalesReport
         {
             var selectedReports = _reportsInPeriod.Where(r => r.IsSelected).ToList();
             var deviceType = (cbDeviceType.SelectedItem as ComboBoxItem)?.Content.ToString();
-            Type tp = deviceType switch
-            {
-                "Ноутбуки" => typeof(Laptop),
-                "Смартфоны" => typeof(Smartphone),
-                "Планшеты" => typeof(Model.Core.Tablet),
-                _ => typeof(ITProduct),
-            };
+            //Type tp = deviceType switch
+            //{
+            //    "Ноутбуки" => typeof(Laptop),
+            //    "Смартфоны" => typeof(Smartphone),
+            //    "Планшеты" => typeof(Model.Core.Tablet),
+            //    _ => typeof(ITProduct),
+            //};
+            Type tp = ITProductExtensions.TypeByName(deviceType);
             var period = (cbReportPeriod.SelectedItem as ComboBoxItem)?.Content.ToString();
             DateTime startTime = dpReportDate.SelectedDate.Value;
-            DateTime endTime = period switch
-            {
-                "День" => startTime.AddDays(1),
-                "Неделя" => startTime.AddDays(7),
-                "Месяц" => startTime.AddMonths(1),
-                "Квартал" => startTime.AddMonths(3),
-                "Год" => startTime.AddYears(1),
-                _ => startTime
-            };
+            //DateTime endTime = period switch
+            //{
+            //    "День" => startTime.AddDays(1),
+            //    "Неделя" => startTime.AddDays(7),
+            //    "Месяц" => startTime.AddMonths(1),
+            //    "Квартал" => startTime.AddMonths(3),
+            //    "Год" => startTime.AddYears(1),
+            //    _ => startTime
+            //};
+            DateTime endTime = Report.GetEndTime(startTime, period);
             var reportWindow = new ReportWindow(selectedReports.Select(r => r.BaseReport).ToList(), _serializer, tp, startTime, endTime);
             reportWindow.Show();
         }

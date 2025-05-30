@@ -56,14 +56,20 @@ namespace Model.Core
 
         public bool ContainsSalesInPeriod(DateTime date, string period)
         {
+            DateTime otherDate = GetEndTime(date, period);
+            return Devices.Any(d => d.SaleDate >= date && d.SaleDate <= otherDate);
+        }
+
+        public static DateTime GetEndTime(DateTime date, string period)
+        {
             return period switch
             {
-                "День" => Devices.Any(d => d.SaleDate?.Date == date.Date),
-                "Неделя" => Devices.Any(d => d.SaleDate >= date && d.SaleDate < date.AddDays(7)),
-                "Месяц" => Devices.Any(d => d.SaleDate >= date && d.SaleDate < date.AddMonths(1)),
-                "Квартал" => Devices.Any(d => d.SaleDate >= date && d.SaleDate < date.AddMonths(3)),
-                "Год" => Devices.Any(d => d.SaleDate >= date && d.SaleDate < date.AddYears(1)),
-                _ => false
+                "День" => date.AddDays(1),
+                "Неделя" => date.AddDays(7),
+                "Месяц" => date.AddMonths(1),
+                "Квартал" => date.AddMonths(3),
+                "Год" => date.AddYears(1),
+                _ => date
             };
         }
     }
