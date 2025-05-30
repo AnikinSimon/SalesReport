@@ -19,7 +19,6 @@ namespace Model.Core
         public DateTime? SaleDate { get; private set; }
         public decimal BasePrice { get; private set; }
 
-
         public virtual decimal Price => BasePrice;
 
         public virtual string Type => GetType().Name;
@@ -34,6 +33,7 @@ namespace Model.Core
             ID = id;
         }
 
+        // переопредление
         public override string ToString()
         {
             return String.Join(" ", $"ID: {ID}",
@@ -44,6 +44,5 @@ namespace Model.Core
             $"SaleDate: {SaleDate}");
         }
 
-        //public ITProduct() { }
     }
 }

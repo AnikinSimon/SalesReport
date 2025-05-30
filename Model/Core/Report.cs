@@ -29,14 +29,6 @@ namespace Model.Core
                 Devices.OrderByDescending(d => d.Article).ToList();
         }
 
-        //public IEnumerable<ITProduct> Select(Type deviceType, Func<ITProduct, bool> filter = null)
-        //{
-        //    IEnumerable<ITProduct> res = Select(deviceType);
-        //    if (filter != null)
-        //        res = res.Where(filter);
-        //    return res;
-        //}
-
         public IEnumerable<ITProduct> Select(params Func<ITProduct, bool>[] selectParams)
         {
             IEnumerable<ITProduct> res = Devices;
@@ -71,38 +63,6 @@ namespace Model.Core
                 "Год" => date.AddYears(1),
                 _ => date
             };
-        }
-    }
-
-    public partial class Report
-    {
-
-        // Фабричный метод для создания отчета
-        public static Report Create(string name, DateTime start, DateTime end, List<ITProduct> devices)
-        {
-            return new Report(name, start, end, devices);
-        }
-
-        // Метод для сериализации
-        public ReportDto ToDto()
-        {
-            return new ReportDto
-            {
-                Name = Name,
-                StartDate = StartDate,
-                EndDate = EndDate,
-                Devices = Devices.Select(d => d.ToDto()).ToList()
-            };
-        }
-
-        // Метод для десериализации
-        public static Report FromDto(ReportDto dto)
-        {
-            return new Report(
-                dto.Name,
-                dto.StartDate,
-                dto.EndDate,
-                dto.Devices.Select(ITProductExtensions.FromDto).ToList());
         }
     }
 

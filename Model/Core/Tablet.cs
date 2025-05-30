@@ -11,12 +11,12 @@ namespace Model.Core
         public bool HasPenSupport { get; private set; }
         public int StorageCapacity { get; private set; } // в ГБ
 
+        // переопредление
         public override decimal Price => BasePrice +
                                       (HasPenSupport ? 5000 : 0) +
                                       (StorageCapacity * 200);
 
 
-        //public override decimal Price => BasePrice;
         public Tablet(Guid id, string article, string brand, string model, decimal basePrice,
                       DateTime? saleDate, bool hasPenSupport, int storageCapacity)
              : base(id, article, brand, model, basePrice, saleDate)
@@ -29,7 +29,5 @@ namespace Model.Core
         {
             return String.Join(" ",  base.ToString(), $"HasPenSupport: {HasPenSupport}", $"StorageCapacity: {StorageCapacity}");
         }
-
-        //public Tablet() { }
     }
 }

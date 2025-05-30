@@ -25,28 +25,21 @@ namespace SalesReport
     public partial class MainWindow : Window
     {
         private List<Report> _reports = new();
-        //private List<Report> _reportsInPeriod = new();
         private List<ReportChecking> _reportsInPeriod = new();
         // Приведение
         private ISerializer _serializer = new Model.Data.JsonSer();
 
         public MainWindow()
         {
-            bool isJson = true;
             InitializeComponent();
-            Trace.WriteLine($"HElloe");
-            if (!isJson)
-            {
-                _serializer = new Model.Data.XmlSer();
-            }
-                
-            LoadReports(isJson);
+            Trace.WriteLine($"INITIAL");
+            LoadReports();
             SetupEventHandlers();
             dpReportDate.SelectedDate = DateTime.Today;
             
         }
 
-        private void LoadReports(bool isJson = true)
+        private void LoadReports()
         {
             try
             {
@@ -55,7 +48,7 @@ namespace SalesReport
                 Directory.CreateDirectory(reportsPath);
 
                 if (!Directory.GetFiles(reportsPath).Any())
-                    GenerateSampleReports(reportsPath, isJson);
+                    GenerateSampleReports(reportsPath);
 
 
                 foreach (var file in Directory.GetFiles(reportsPath))
@@ -68,7 +61,7 @@ namespace SalesReport
                         if (file.EndsWith(_serializer.Extension))
                         {
                             ReportDto dto = _serializer.Deserialize<ReportDto>(content);
-                            _reports.Add(Report.FromDto(dto));  
+                            _reports.Add(DtoManager.FromDto(dto));  
                         }
                        
                     }
@@ -89,7 +82,7 @@ namespace SalesReport
             }
         }
 
-        private void GenerateSampleReports(string path, bool isJson = true)
+        private void GenerateSampleReports(string path)
         {
             Trace.WriteLine("GENERATED");
             var random = new Random();
@@ -146,7 +139,7 @@ namespace SalesReport
 
             Laptop newLaptop = new Laptop(Guid.NewGuid(), "LP101", "Lenovo", $"Model 554", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 30)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]);
             
-            // Перегрузка оператора, приведение
+            // Перегрузка оператора +, приведение
             reports[0] += newLaptop;
             reports[1] += newLaptop;
             reports[2].AddDevice(newLaptop);
@@ -160,9 +153,8 @@ namespace SalesReport
                     Trace.WriteLine(device);
                 }
 
-                //string serialized = _serializer.Serialize<ReportDto>(report.ToDto());
                 // Обощенный тип
-                string serialized = _serializer.Serialize<ReportDto>(new ReportDto(report));
+                string serialized = _serializer.Serialize<ReportDto>(DtoManager.ToDto(report));
 
 
                 File.WriteAllText(System.IO.Path.Combine(path, $"{report.Name}{_serializer.Extension}"), serialized);
@@ -223,16 +215,6 @@ namespace SalesReport
 
             foreach (Report report in _reports)
             {
-                //if (report is null) continue;
-                //report.IsSelected = report.ContainsSalesInPeriod(dpReportDate.SelectedDate.Value, period) &&
-                //    (deviceType == "Все устройства" ||
-                //     report.Devices.Any(d => deviceType switch
-                //     {
-                //         "Ноутбуки" => d is Laptop,
-                //         "Смартфоны" => d is Smartphone,
-                //         "Планшеты" => d is Model.Core.Tablet,
-                //         _ => true
-                //     }));
 
                 bool isSelected = report.ContainsSalesInPeriod(dpReportDate.SelectedDate.Value, period) &&
                     (deviceType == "Все устройства" ||
@@ -262,25 +244,11 @@ namespace SalesReport
         {
             var selectedReports = _reportsInPeriod.Where(r => r.IsSelected).ToList();
             var deviceType = (cbDeviceType.SelectedItem as ComboBoxItem)?.Content.ToString();
-            //Type tp = deviceType switch
-            //{
-            //    "Ноутбуки" => typeof(Laptop),
-            //    "Смартфоны" => typeof(Smartphone),
-            //    "Планшеты" => typeof(Model.Core.Tablet),
-            //    _ => typeof(ITProduct),
-            //};
             Type tp = ITProductExtensions.TypeByName(deviceType);
+
             var period = (cbReportPeriod.SelectedItem as ComboBoxItem)?.Content.ToString();
             DateTime startTime = dpReportDate.SelectedDate.Value;
-            //DateTime endTime = period switch
-            //{
-            //    "День" => startTime.AddDays(1),
-            //    "Неделя" => startTime.AddDays(7),
-            //    "Месяц" => startTime.AddMonths(1),
-            //    "Квартал" => startTime.AddMonths(3),
-            //    "Год" => startTime.AddYears(1),
-            //    _ => startTime
-            //};
+
             DateTime endTime = Report.GetEndTime(startTime, period);
             var reportWindow = new ReportWindow(selectedReports.Select(r => r.BaseReport).ToList(), _serializer, tp, startTime, endTime);
             reportWindow.Show();

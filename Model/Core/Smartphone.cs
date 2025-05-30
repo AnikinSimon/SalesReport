@@ -12,12 +12,11 @@ namespace Model.Core
         public double ScreenSize { get; private set; } // в дюймах
         public bool Has5G { get; private set; }
 
+        // переопредление
         public override decimal Price => BasePrice + (decimal)(ScreenSize * 3000) +
                                       (Has5G ? 8000 : 0);
 
-        //public override decimal Price => BasePrice;
-
-
+        
         public Smartphone(Guid id, string article, string brand, string model, decimal basePrice,
                         DateTime? saleDate, double screenSize, bool has5G)
             : base(id, article, brand, model, basePrice, saleDate)
@@ -30,7 +29,5 @@ namespace Model.Core
         {
             return String.Join(" ", base.ToString(), $"ScreenSize: {ScreenSize}", $"Has5G: {Has5G}");
         }
-
-        //public Smartphone() { }
     }
 }

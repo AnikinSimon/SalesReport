@@ -22,7 +22,6 @@ namespace SalesReport
     /// </summary>
     public partial class PriceHistoryWindow : Window
     {
-
         public PriceHistoryWindow(List<Report> reports, string article, DateTime startTime, DateTime endTime)
         {
             InitializeComponent();
@@ -60,19 +59,6 @@ namespace SalesReport
 
         public PriceHistoryViewModel(List<Report> reports, string article, DateTime startTime, DateTime endTime)
         {
-            // Получаем все продажи данного товара
-            //var sales = reports
-            //    .SelectMany(r => r.Devices)
-            //    .Where(d => d.Article == article && d.SaleDate.HasValue)
-            //    .Where(d => d.SaleDate >= startTime && d.SaleDate <= endTime)
-            //    .GroupBy(d => d.SaleDate)
-            //    .Select(g => new
-            //    {
-            //        Date = g.Key,
-            //        AvgPrice = g.Average(d => d.Price),
-            //    })
-            //    .OrderBy(x => x.Date)
-            //    .ToList();
 
             // делегат
             var sales = reports

@@ -24,6 +24,8 @@ namespace Model.Core
 
         public void AddDevice(ITProduct device)
         {
+            if (device == null)
+                return;
             if (ProductRegistry.TryRegisterProduct(device, this.Name) && !Devices.Contains(device))
             {
                 Trace.WriteLine($"ADDED {device.ID}");

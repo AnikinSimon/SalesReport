@@ -11,6 +11,7 @@ namespace Model.Core
         public int RAM { get; private set; } // в ГБ
         public string ProcessorType { get; private set; } // "i3", "i5", "i7" и т.д.
 
+        // переопредление
         public override decimal Price => BasePrice + RAM * 1500 +
                                       ProcessorType switch
                                       {
@@ -20,8 +21,6 @@ namespace Model.Core
                                           "i9" => 20000,
                                           _ => 0
                                       };
-
-        //public override decimal Price => BasePrice;
 
         public Laptop(Guid id, string article, string brand, string model, decimal basePrice,
                 DateTime? saleDate, int ram, string processorType)
@@ -35,7 +34,5 @@ namespace Model.Core
         {
             return String.Join(" ", base.ToString(), $"RAM: {RAM}", $"ProcessorType: {ProcessorType}");
         }
-
-        //public Laptop() { }
     }
 }
