@@ -32,7 +32,7 @@
                 <DataGridTextColumn Header="Бренд" Binding="{Binding Brand}" Width="120"/>
                 <DataGridTextColumn Header="Модель" Binding="{Binding Model}" Width="150"/>
                 <DataGridTextColumn Header="Тип" Binding="{Binding Type}" Width="100"/>
-                <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat=C}" Width="100"/>
+                <DataGridTextColumn Header="Цена, рубл." Binding="{Binding Price, StringFormat={}{0:N2}}" Width="100"/>
                 <DataGridTextColumn Header="Дата продажи" Binding="{Binding SaleDate, StringFormat=d}" Width="120"/>
             </DataGrid.Columns>
         </DataGrid>
