@@ -42,6 +42,7 @@ namespace Model.Core
 
         public static ITProduct FromDto(ITProductDto dto)
         {
+            // Приведение
             return dto.Type switch
             {
                 nameof(Laptop) => new Laptop(dto.ID,

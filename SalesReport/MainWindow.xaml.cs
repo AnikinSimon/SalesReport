@@ -27,6 +27,7 @@ namespace SalesReport
         private List<Report> _reports = new();
         //private List<Report> _reportsInPeriod = new();
         private List<ReportChecking> _reportsInPeriod = new();
+        // Приведение
         private ISerializer _serializer = new Model.Data.JsonSer();
 
         public MainWindow()
@@ -100,6 +101,7 @@ namespace SalesReport
 
                 for (int j = 0; j < 3; j++)
                 {
+                    // Приведение
                     ITProduct device = (i % 3) switch
                     {
                         0 => new Laptop(Guid.NewGuid(), $"LP{i:000}", i % 2 == 0 ? "Asus" : "Lenovo", $"Model {i}", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 90)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]),
@@ -143,9 +145,11 @@ namespace SalesReport
             };
 
             Laptop newLaptop = new Laptop(Guid.NewGuid(), "LP101", "Lenovo", $"Model 554", 30000 + random.Next(0, 10) * 5000, DateTime.Today.AddDays(-random.Next(0, 30)), 4 * (1 + random.Next(0, 4)), new[] { "i3", "i5", "i7", "i9" }[random.Next(0, 4)]);
+            
+            // Перегрузка оператора, приведение
             reports[0] += newLaptop;
-
             reports[1] += newLaptop;
+            reports[2].AddDevice(newLaptop);
 
             // Сохранение отчетов
             foreach (var report in reports)
@@ -157,7 +161,7 @@ namespace SalesReport
                 }
 
                 //string serialized = _serializer.Serialize<ReportDto>(report.ToDto());
-
+                // Обощенный тип
                 string serialized = _serializer.Serialize<ReportDto>(new ReportDto(report));
 
 
@@ -185,6 +189,8 @@ namespace SalesReport
             string curExt = _serializer.Extension;
             if (curExt == newExt)
                 return;
+
+            // Приведение
             ISerializer tempSerializer = cbSaveFormat.SelectedIndex == 0 ?  new JsonSer() : new XmlSer();
             string reportsPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Data", "Reports");
             Trace.WriteLine(curExt);
