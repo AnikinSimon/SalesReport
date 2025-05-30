@@ -210,21 +210,19 @@ namespace SalesReport
 
             var period = (cbReportPeriod.SelectedItem as ComboBoxItem)?.Content.ToString();
             var deviceType = (cbDeviceType.SelectedItem as ComboBoxItem)?.Content.ToString();
-
+            DateTime startTime = dpReportDate.SelectedDate.Value;
+            DateTime endtime = Report.GetEndTime(startTime, period);
             _reportsInPeriod.Clear();
+
+            Trace.WriteLine(deviceType);
 
             foreach (Report report in _reports)
             {
 
-                bool isSelected = report.ContainsSalesInPeriod(dpReportDate.SelectedDate.Value, period) &&
-                    (deviceType == "Все устройства" ||
-                     report.Devices.Any(d => deviceType switch
-                     {
-                         "Ноутбуки" => d is Laptop,
-                         "Смартфоны" => d is Smartphone,
-                         "Планшеты" => d is Model.Core.Tablet,
-                         _ => true
-                     }));
+                bool isSelected = report
+                    .Select(ITProductExtensions.TypeByName(deviceType))
+                    .Any(d => d.SaleDate >= startTime && d.SaleDate <= endtime);
+
                 if (isSelected)
                 {
                     ReportChecking ch = new ReportChecking(report);
@@ -236,8 +234,6 @@ namespace SalesReport
 
             lbAvailableReports.Items.Refresh();
             btnShowReport.IsEnabled = _reportsInPeriod.Any(r => r.IsSelected);
-
-
         }
 
         private void ShowReport()
